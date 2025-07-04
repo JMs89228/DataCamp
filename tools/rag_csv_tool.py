@@ -3,7 +3,7 @@ from langchain_community.document_loaders import CSVLoader
 from langchain.embeddings import OllamaEmbeddings
 from langchain.vectorstores import Chroma
 from langchain.chains import RetrievalQA
-from langchain_community.chat_models import ChatOllama  # 或 HuggingFaceHub 也可
+from langchain_community.chat_models import ChatOllama, HuggingFaceHub
 from langchain.text_splitter import CharacterTextSplitter
 
 CHROMA_DIR = "chroma_db"
