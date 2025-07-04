@@ -1,0 +1,5 @@
+langchain>=0.1.15
+langchain-community
+pandas
+python-dotenv
+
