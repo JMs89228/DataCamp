@@ -1,0 +1,13 @@
+{
+    "mcpServers": {
+        "query-meeting-rooms": {
+            "command": "uv",
+            "args": [
+                "--directory",
+                "/Users/mocheng/Documents/Cathay/DataCamp/ai_meeting_assistant/tools",
+                "run",
+                "mcp_tool.py" 
+            ]
+        }
+    }
+}

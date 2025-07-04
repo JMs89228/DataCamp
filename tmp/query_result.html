@@ -1,0 +1,4825 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+		<title>會議預約系統</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge, chrome=1">
+		<meta http-equiv="Cache-Control" content="no-cache, no-store, max-age=0, must-revalidate">
+		<meta http-equiv="Pragma" content="no-cache">
+		<meta http-equiv="Expires" content="0">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="format-detection" content="telephone=no">
+		<meta name="SKYPE_TOOLBAR" content="SKYPE_TOOLBAR_PARSER_COMPATIBLE">
+		<meta charset="UTF-8">
+		
+		
+		
+		<link rel="icon" type="image/x-icon" href="/frontend/img/favicon.ico">
+		
+		<script type="text/javascript" src="/frontend/js/jquery/jquery.min.js"></script>
+		<script type="text/javascript" src="/frontend/js/jquery-ui/jquery-ui.min.js"></script>
+		<script type="text/javascript" src="/frontend/js/jquery-datetimepicker/jquery-datetimepicker.min.js"></script>
+		<script type="text/javascript" src="/frontend/js/jquery-validate/jquery.validate.min.js"></script>
+		<script type="text/javascript" src="/frontend/js/popper/popper.min.js"></script>
+		<script type="text/javascript" src="/frontend/js/bootstrap-toggle/bootstrap-toggle.min.js"></script>
+		<script type="text/javascript" src="/frontend/js/bootstrap-multiselect/bootstrap-multiselect.min.js"></script>
+		
+		<link rel="stylesheet" type="text/css" href="/frontend/js/jquery-ui/jquery-ui.min.css">
+		<link rel="stylesheet" type="text/css" href="/frontend/js/jquery-datetimepicker/jquery-datetimepicker.min.css">
+		<link rel="stylesheet" type="text/css" href="/frontend/js/bootstrap-toggle/bootstrap-toggle.min.css">
+		<link rel="stylesheet" type="text/css" href="/frontend/js/bootstrap-multiselect/bootstrap-multiselect.min.css">
+		
+		<!--美工 start-->
+		<script type="text/javascript" src="/frontend/js/jquery/jquery-migrate-1.2.1.js"></script>
+		<script type="text/javascript" src="/frontend/js/bootstrap/bootstrap.min.js"></script>
+		<!-- 0907slider JS-->
+		<script type="text/javascript" src="/frontend/js/owlcarousel/owl.carousel.js"></script>
+		
+		<link rel="stylesheet" type="text/css" href="/frontend/css/bootstrap/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="/frontend/css/main.css">
+		<link rel="stylesheet" type="text/css" href="/frontend/css/all.css">
+		<link rel="stylesheet" type="text/css" href="/frontend/css/reset.css">
+		<link rel="stylesheet" type="text/css" href="/frontend/css/fonticon_style.css">
+		<!-- 0907slider css-->
+		<link rel="stylesheet" href="/frontend/js/owlcarousel/css/docs.theme.min.css">   <!-- 測試可能不需要待移除 -->
+		<link rel="stylesheet" href="/frontend/js/owlcarousel/assets/owl.carousel.min.css">
+		<link rel="stylesheet" href="/frontend/js/owlcarousel/assets/owl.theme.default.min.css">
+		<!--美工 end-->
+		
+		<!--MRM start-->
+		<script type="text/javascript" src="/frontend/mrm/mrmValidator.js"></script>
+		<script type="text/javascript" src="/frontend/mrm/validateMessages.js"></script>
+		<script type="text/javascript" src="/frontend/mrm/frontend.js"></script>
+		<script>
+		
+			var _csrf = {"token":"6059c613-4c53-48aa-ba7b-7fa95c22d063","parameterName":"_csrf","headerName":"X-CSRF-TOKEN"};
+			$.ajaxSetup({
+		        beforeSend: function(xhr, settings) {
+		            if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && _csrf) {
+		                xhr.setRequestHeader(_csrf.headerName, _csrf.token);
+		            }
+		        }
+			});
+
+			var APP_ROLE = {
+				ROLE_MANAGER : false,
+				ROLE_SUB_MANAGER : false,
+				ROLE_SITE_MANAGER : false,
+				ROLE_USER_MATCH_EXCLUDE : false
+			}
+	
+		    
+		    
+		    
+		    
+	    	
+		</script>
+		
+		<link rel="stylesheet" type="text/css" href="/frontend/mrm/frontend.css">
+		<!--MRM end-->
+		
+		<script>
+			var contextName = '/';
+						
+		</script>
+	<script type="text/javascript" src="/frontend/mrm/meetingRoomRecord.js"></script>
+	<style>
+		.Title8 li:nth-of-type(1){
+			width: 7rem !important;
+		}
+		.Pop_Meeting_detial .Content {
+			pointer-events: auto;
+			height: 100%;
+			overflow: scroll;
+		}		
+		.Pop_Meeting_detial {
+			--customizedwidth: 320px;
+			--customizedheight: 450px;
+			position: absolute;
+			top:  calc(50% - var(--customizedheight)/2);
+			left: calc(50% - var(--customizedwidth)/2);
+			/*
+			margin-left: calc(var(--customizedwidth)/-2);
+			margin-top: calc(var(--customizedheight)/-2);
+			*/
+			width: var(--customizedwidth);
+			height: var(--customizedheight);
+			text-align: left;
+			overflow: hidden;
+		}
+	</style>
+	</head>
+	<body>
+		
+
+<style>
+	#mySidenav {
+		overflow: scroll;
+	}
+	
+	#mySidenav::-webkit-scrollbar {
+		width: 5px;
+	}
+	
+	#mySidenav::-webkit-scrollbar-thumb {
+		background: #888;
+	}
+	
+	#mySidenav::-webkit-scrollbar-thumb:hover {
+		background: #555;
+	}
+	
+	.Left_menu li {
+		margin-bottom: 1.5rem;
+	}
+</style>
+<script>
+	$(function() {
+		var userInfo = {"userId":"00897772","idNo":"00897772","empName":"\u83AB\u9032\u8C50","parCode":"0","nickName":"JEFF","position":"48D","positionName":"\u9AD8\u7D1A\u5C08\u54E1","email":"jmo@cathaylife.com.tw","institutionPhone1":"02","institutionPhone2":"26566999","institutionPhone3":"27320","bu1Code":"A0","bu1":"\u570B\u6CF0\u4EBA\u58FD","bu2Code":"9W00000","bu2":"\u4E2D\u53F0\u8CC7\u8A0A\u90E8","bu3Code":"9W00400","bu3":"\u6843\u5712\u8EDF\u9AD4\u958B\u767C\u4E2D\u5FC3"};
+		$('.headerUserName').text(userInfo.empName);
+		
+		// 防止非chrome相關瀏覽器使用
+		var isBrowserAllow = detectBrowser();
+		if(!isBrowserAllow){
+			var textHide = document.getElementById('openLoadingContent');
+			var textShow = document.getElementById('notAllowContent');
+			textHide.style.display = "none";
+			textShow.style.display = "";
+		}
+		
+		$('.newsHeaderMore').click(function(){
+		   openLoading();
+		   $('#newsHref')[0].click();
+		});	
+		
+		$('.goToMrm101w').click(function(){
+			openLoading();
+			$('#returnMrm101w')[0].click();
+		})
+		
+		$('.Mobile_user_name').click(function(){
+			$('.Mobile_Logout_menu').toggle();
+		})
+		
+		$('.Mobile_Logout_menu, .Logout').click(function(){
+			$('.bd-logOutConform-modal').modal('show');
+			$('#confirmLogOut').bind('click',function(){
+				openLoading();
+				$('.bd-logOutConform-modal').modal('hide');
+				$('#logOutHref')[0].click();
+			});
+		})
+		
+		$(document).on('click', function(e) {
+			var ignoreClass = ['Web_header', 'Web_header_ul', 'Menu_bar', 'fa fa-bars'];
+			if(e.target && ignoreClass.indexOf(e.target.className) == -1){
+				if(isSideBarShow){
+					closeNav();
+				}
+			}
+	    })
+	});
+
+	function openNav() {
+		$('#mySidenav').attr('class','Left_menu');
+		isSideBarShow = !isSideBarShow;
+	}
+		
+	function closeNav() {
+		$('#mySidenav').attr('class','Left_menu Menu_close');
+		isSideBarShow = !isSideBarShow;
+	}
+
+	var isSideBarShow = false;
+	function triggerNav() {
+	    if (isSideBarShow) {
+	    	closeNav();
+	    } else {
+	    	openNav();
+	    }
+	}
+	
+	function detectBrowser(){
+	    var ua = navigator.userAgent.toLowerCase();
+		var edge = ua.match(/edge\/([\d.]+)/);    
+		var ie10 = ua.match(/msie ([\d.]+)/);    
+		var ie11 = ua.match(/trident\/([\d.]+)/); 
+	    
+	    if (edge || ie10 || ie11) {
+	    	return false;
+	    }else{
+	    	return true;
+	    }
+	}
+	
+</script>
+
+		<div class="modal fade bd-logOutConform-modal" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="myLargeModalLabel">是否確認登出</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="Text_area">
+						<ul>
+							<li>您是否確認登出？</li>
+						</ul>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn Btn_Light_Green Btn_basic" id="confirmLogOut">是</button>
+						<button type="button" class="btn Btn_blue Btn_basic" data-dismiss="modal">否</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	
+
+		<div class="modal fade bd-latestNews-modal " tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-xl">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="myLargeModalLabel">最新公告</h5>
+						
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="downloadError Page_Error_infor"></div>
+					<div class="Text_area">
+					
+						<ul class="Display_inline">
+							<li class="Green_color" style="padding-right:2rem;">日期：</li>
+							
+								<li>2022/03/08~2030/12/31</li>
+							
+							
+						</ul>
+						<ul class="Display_inline">
+							<li class="Green_color" style="padding-right:2rem;">標題：</li>
+							<li style="display:contents;word-break: break-all;">集團會議預約原則</li>
+						</ul>
+						<ul class="Display_inline">
+							<li class="Green_color">公告單位：</li>
+							<li>國泰金控-國泰金控-金控轉型辦公室</li>
+						</ul>
+						<ul>
+							<li class="Green_color">內容:</li>
+							<span class="contentTarget" style="margin-left: 90px;">
+								<p><strong>一、預約規則： </strong></p> 
+<ol> 
+ <li>會議預約及設備借用請至「國泰集團會議預約系統(C-Booking)」畫面進行預約，該系統提供2個月內之預約申請。</li> 
+ <li>為達公平使用會議資源及提升開會效率，系統僅提供<strong>每人每半天最多預約會議室</strong><strong> 2 </strong><strong>小時，視訊會議8</strong><strong>小時</strong>，請依照實際需求進行預約。</li> 
+ <li>各單位已申請之會議室，如遇緊急重要會議（如高級主管、金融檢查、跨部等重要會議），借用單位須配合讓出使用權，並自行與其他會議室使用單位協調。如有專案任務，需一次借用超過上述時段會議者，請以E-mail通知會議室管理單位指定信箱協助，並副本知會單位主管。但如相關時段已被其他單位預約，請自行協調。</li> 
+</ol> 
+<p><strong>二、會議室及設備使用注意事項：</strong></p> 
+<ol> 
+ <li>若會議可能超時，請提早預借下一個時段，或自行與下一個時段的部門進行協調，勿佔用他人時段。</li> 
+ <li>會議結束，隨手關閉電視/投影機電源。會議室使用完畢，請務必保持整潔及回復場地原狀（包括歸還借用他處之椅子），如有垃圾（含開會資料）請隨手攜出，以利下個單位使用。</li> 
+ <li>國壽仁愛總公司大樓各會議室座椅，請勿移動至其他會議室使用，如會議室座椅數量不足可借用摺疊椅。</li> 
+</ol> 
+<p><strong>三、黑名單：</strong>未依規定上線取消，連續60天內，經查知累積達3次(含)以上者，停止借用30天，以避免資源閒置浪費，請同仁共同遵守以提升會議室及設備使用效益。</p> 
+<p><strong>四、其他：</strong></p> 
+<ol> 
+ <li>響應節能減碳，開會時請自備茶水與電子文件（簡報）作為開會資料。</li> 
+ <li>共同維護會議室整潔，避免妨害他人使用及滋生蟑螂，請開會時勿攜帶食物及飲料進入會議室。</li> 
+ <li>如發現會議室設備有任何損壞時，請告知管理員或櫃檯人員，以便通知廠商進行維修，會議室和設備問題聯繫單位，請詳附件。</li> 
+ <li>本注意事項係規範集團共用會議室為主。</li> 
+</ol> 
+<p>&nbsp;</p> 
+<p>🙋‍♂️新手不知道如何使用嗎?&nbsp; 點擊👉<a href="https://agent2.cathaylife.com.tw/PDBC/c_booking">教學網站</a>&nbsp;</p>
+							</span>
+						</ul>
+						<ul>
+							<li class="Green_color">附件：</li>
+							
+							<li class="File" style="margin-left: 30px;">
+								<ul>
+									<li style="text-align: center;margin-right:0px;">
+										<i class="far fa-file-alt" style="font-size: 50px;"></i>
+										<div style="margin-left: 20px;text-decoration: underline;" class="File_name textDisAnnounce" onclick="downloadNewsAttach(1001000)">管理單位.jpg</div>
+									</li>
+								</ul>
+
+							</li>
+							
+						</ul>
+<!-- 						<ul class="Display_inline"> -->
+<!-- 							<li class="Green_color" style="padding-right:1.5rem;">公告人：</li> -->
+<!-- 							<li th:text="${news.userId.empName}"></li> -->
+<!-- 						</ul> -->
+					
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn Btn_Light_Green Btn_basic" data-dismiss="modal">關閉</button>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<style>
+		.contentTarget{
+    		display: inline-block;
+		}
+		em {
+		    font-style: italic !important;
+		}
+		
+		b, strong {
+ 		   font-weight: bolder !important;
+		}
+		.contentTarget ol li{
+			list-style: decimal !important;
+		} 
+		
+		.contentTarget ul li{
+			list-style: disc !important;
+		} 
+		</style>
+		
+		<script>
+		// 下載公告附件
+		function downloadNewsAttach(id){
+			
+			$('.downloadError').empty();
+			
+			var url = "/frontend/mrm105w/download/"+id;
+			$.ajax({
+				url: url,
+				type: 'get',
+			})
+			.done(function(data) {
+				window.location.href = url;
+			})
+			.fail(function(jqXHR, textStatus, errorThrown) {
+				var errMsg = '下載失敗';
+				if(jqXHR.responseJSON){
+					errMsg = jqXHR.responseJSON.errMsg;
+				}
+				$('.downloadError').text(errMsg);
+				$('.downloadError').css('display','block');
+			});
+		}
+		
+		</script>
+	
+
+		<div class="modal fade bd-browserAllow-modal" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true" data-backdrop="static">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="myLargeModalLabel">提示訊息</h5>
+					</div>
+					<div class="Text_area">
+						<ul>
+							<li>為確保所有服務正常，請改以chrome瀏覽器開啟C_Booking，謝謝</li>
+						</ul>
+					</div>
+					<div class="modal-footer">
+					</div>
+				</div>
+
+			</div>
+		</div>
+	
+<header class="Web_header">
+	<ul class="Web_header_ul">
+		<li class="Menu_bar" onclick="triggerNav()">
+			<i class="fa fa-bars" aria-hidden="true"></i>
+		</li>
+		<li class="Web_title">  <!--  增修編號9&11 金控列列高縮小 --> 
+			<img src="/frontend/img/logo.png" class="goToMrm101w" style="cursor:pointer;height:40px;">
+			<span id="headerTitle">實體會議</span>
+		</li>
+		<li class="Web_user_name"><span class="Green_color headerUserName" id="userName">莫進豐</span>您好</li>
+		<li class="Mobile_system_name"><img src="/frontend/img/tree_logo.png" class="goToMrm101w"><span id="headerTitleMobile">實體會議</span></li>
+		<li class="Mobile_user_name"><span class="Green_color headerUserName">莫進豐</span>您好</li>
+		<li class="Logout"><button class="Btn_Green">登出</button></li>
+	</ul>
+	<div class="Mobile_Logout_menu" style="display:none;">
+		<span><i class="fas fa-sign-out-alt"></i>登出</span>
+	</div>
+	<a href="/frontend/logout" id="logOutHref" style="display:none"></a>
+	<a href="/frontend/mrm101w/index" id="returnMrm101w" style="display:none;"></a>
+</header>
+
+<div class="News_area">
+	
+		<div class="Text">
+			<a data-toggle="modal" data-target=".bd-latestNews-modal" style="text-decoration:underline; cursor:pointer;">集團會議預約原則</a>
+		</div>
+		<span class="More_icon newsHeaderMore">
+			<span style="cursor: pointer">more</span>
+		</span>
+		<a href="/frontend/mrm105w/index" id="newsHref" style="display:none"></a>
+	
+	
+</div>
+
+<!-- left nav begin -->
+<div id="mySidenav" class="Left_menu Menu_close">
+	<ul>
+		<li>
+			<a onclick="openLoading();" href="/frontend/mrm101w/index" class="active">
+				<span class="icon-icon01"></span>
+				<p>實體會議</p>
+			</a>
+		</li>
+		<li>
+			<a onclick="openLoading();" href="/frontend/mrm107w/index">
+				<span class="icon-icon02"></span>
+				<p>視訊會議</p>
+			</a>
+		</li>
+		<li>
+			<a onclick="openLoading();" href="/frontend/mrm102w/index">
+				<span class="icon-icon03"></span>
+				<p>設備預約</p>
+			</a>
+		</li>
+		<li>
+			<a onclick="openLoading();" href="/frontend/mrm103w/index">
+				<span class="icon-icon04"></span>
+				<p>會議通知</p>
+			</a>
+		</li>
+		<!-- MRM_stage2_增修：新增連結至mrm108新功能-->
+		<li>
+			<a onclick="openLoading();" href="/frontend/mrm108w/index">
+				<span class="icon-icon05"></span>
+				<p>借用紀錄</p>
+			</a>
+		</li>
+		<!--2021/11/03 user表示 : 新增人員媒合  -->
+		<li>
+			<a onclick="openLoading();" href="/frontend/mrm104w/index">
+				<span>
+				<i class="fas fa-user-friends"></i>
+				</span>
+				<p>人員媒合</p>
+			</a>
+		</li>
+		<li>
+			<a onclick="openLoading();" href="/frontend/mrm106w/index">
+				<span class="icon-icon06"></span>
+				<p>黑名單</p>
+			</a>
+		</li>
+		<li>
+		    <p style="font-size: 10px; color: white; font-weight: bold; text-align: center;">v25.04.8</p>
+		</li>
+	</ul>
+</div>
+
+
+		<div><style>
+.modal-backdrop{
+	background-color: #2B2B2B !important;
+}
+</style>
+<button id="popOneModal" hidden="" type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-03"></button>
+<div class="modal fade bd-example-modal-03" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-xl">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="oneModalTitleName"></h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">×</span>
+				</button>
+			</div>
+			<div class="Text_area" id="oneModalContextName">
+			</div>
+			<div class="modal-footer">
+				<button id="oneModalRightBtn" type="button" class="btn Btn_Light_Green Btn_basic" data-dismiss="modal"></button>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<button id="popTwoModal" hidden="" type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-04"></button>
+<div class="modal fade bd-example-modal-04" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content modalPosition">
+			<div class="modal-header">
+				<h5 class="modal-title" id="twoModalTitleName"></h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">×</span>
+				</button>
+			</div>
+			<div class="Text_area" id="twoModalContextName"></div>
+			<div class="modal-footer" style="padding-right: 3rem;">
+				<button id="twoModalLeftBtn" type="button" class="btn Btn_Light_Green Btn_basic"></button>
+				<button id="twoModalRightBtn" type="button" class="btn Btn_Gray Btn_basic" data-dismiss="modal"></button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<button id="popThreeModal" hidden="" type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-07"></button>
+<div class="modal fade bd-example-modal-07" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="threeModalTitleName"></h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">×</span>
+				</button>
+			</div>
+			<div class="Text_area" id="threeModalContextName">
+			</div>
+			<div class="modal-footer">
+				<button id="threeModalLeftBtn" type="button" class="btn Btn_Light_Green Btn_basic"></button>
+				<button id="threeModalMiddleBtn" type="button" class="btn Btn_blue Btn_basic"></button>
+				<button id="threeModalRightBtn" type="button" class="btn Btn_Gray Btn_basic" data-dismiss="modal"></button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<style>
+
+.modalPosition{
+	position: relative;
+    top: 10rem;
+}
+
+</style></div>
+		<div>
+		<div class="modal openLoadingModal" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true" style="display: none;">
+		<div class="modal-dialog Loding_modal">
+			<div class="modal-content">
+				<div class="Text_area Loading_area" id="openLoadingContent">
+					<div class="Title">請稍候，頁面讀取中</div>
+					<div class="d-flex justify-content-center">
+						<div class="spinner-border" role="status">
+						  <span class="sr-only">Loading...</span>
+						</div>
+					</div>
+					<div class="Text">Loading......</div>
+				</div>
+				<div id="notAllowContent" style="display:none;">
+					<div class="modal-header">
+						<h5 class="modal-title" id="myLargeModalLabel">提示訊息</h5>
+					</div>
+					<div class="Text_area">
+						<ul>
+							<li>為確保所有服務正常，請改以chrome瀏覽器開啟C_Booking，謝謝</li>
+						</ul>
+					</div>
+					<div class="modal-footer">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="Modal_block_bg2"></div>
+		</div>
+		<script>
+		</script>
+	</div>
+		<div class="Content ">
+	<div>
+		<div class="modal fade bd-example-modal-02 " tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-xl">
+				<div class="modal-content">
+					<div class="modal-header">
+						
+						<h5 class="modal-title" id="myLargeModalLabel">暫無借用規則</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="Text_area">
+					
+						
+						<li class="Green_color"></li>
+						<span class="contentTarget" style="margin-left: 0px;">
+							暫無借用規則
+						</span>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn Btn_Light_Green Btn_basic" data-dismiss="modal">關閉</button>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<style>
+		.contentTarget{
+    		display: inline-block;
+		}
+		em {
+		    font-style: italic !important;
+		}
+		
+		b, strong {
+ 		   font-weight: bolder !important;
+		}
+		.contentTarget ol li{
+			list-style: decimal !important;
+		} 
+		
+		.contentTarget ul li{
+			list-style: disc !important;
+		} 
+		</style>
+	</div>
+	
+	<!-- 錯誤訊息end -->
+	<form id="mrm101w1" method="post" action="/frontend/mrm101w/roomRecordSearch" novalidate="novalidate"><input type="hidden" name="_csrf" value="6059c613-4c53-48aa-ba7b-7fa95c22d063">
+		<div class="Meeting_room row">
+			<div class="Unite_Title" style="display:none">  <!-- 增修編號9&11 移除標題列 -->
+				<div class="Title_wording">實體會議搜尋</div>
+				<div class="Hotkey_btn">
+					<a href="/frontend/mrm101w/showAssignDate?assignType=prevMonth">上月</a>
+					<a href="/frontend/mrm101w/showAssignDate?assignType=today">今天</a>
+					<a href="/frontend/mrm101w/showAssignDate?assignType=nextMonth">下月</a>
+				</div>
+			</div>
+			<!-- 錯誤訊息 -->
+			
+		
+		
+
+		
+		<div id="errorDiv" class="Page_Error_infor" style="display: none">
+			<p class="icon-fa mag-error text-danger">輸入資料有誤，請檢查後重新填寫</p>
+			
+		</div>
+	
+			<!-- 錯誤訊息end -->
+			<!-- 搜尋條件 -->
+			<div class="col-lg-4 col-md-12 Display_inline Basic_padding_b searchDiv">
+				<select id="searchBeanBuildingPK" class="buildingSelect" name="searchBean.buildingPK">
+					
+						<option value="">請選擇大樓</option>
+						<option value="4" selected="selected">仁愛大樓</option>
+						<option value="6">松仁大樓</option>
+						<option value="12">瑞湖大樓</option>
+						<option value="15">信義安和大樓</option>
+						<option value="19">台中忠明大樓</option>
+					
+					
+				</select>
+			</div>
+			<div class="col-lg-8 col-md-12 col-sm-12 Display_inline searchDiv"> <!-- Stage2增修_編號8 by Eddie 20210603-->
+				<ul class="Title5_datepicker_search_withWeekDay"> <!-- Stage2增修_編號8：update class for 新增星期欄位-->
+					<li>
+						<input id="startDate" type="text" data-plugin="datepicker" placeholder="YYYY/MM/DD" class="date startDate originS showCalendarIcon" readonly="" name="searchBean.startDate" value="2025/07/04">
+					</li>
+					<li>~</li>
+					<li>
+						<input id="endDate" type="text" data-plugin="datepicker" placeholder="YYYY/MM/DD" class="date endDate originE showCalendarIcon" readonly="" name="searchBean.endDate" value="2025/07/04">
+					</li>
+					<li> <!-- Stage2增修_編號8：搜尋區新增星期欄位-->
+						<select class="weekDay" id="searchBean.weekDay" name="searchBean.weekDay">
+							<option value="">不限</option>
+							<option value="SUNDAY">星期日</option>
+							<option value="MONDAY">星期一</option>
+							<option value="TUESDAY">星期二</option>
+							<option value="WEDNESDAY">星期三</option>
+							<option value="THURSDAY">星期四</option>
+							<option value="FRIDAY">星期五</option>
+							<option value="SATURDAY">星期六</option>
+						</select>
+					</li>
+					<li>
+						<input type="hidden" class="searchDate" id="searchBean.searchDate" name="searchBean.searchDate" value="2025/07/04">
+						<input type="hidden" id="searchBean.searchTimePeriod" name="searchBean.searchTimePeriod" value="MORNING">
+						<input type="hidden" id="searchBean.meetingRoomType" name="searchBean.meetingRoomType" value="PHYSICAL">
+						<button type="submit" class="Search_btn Btn_Green Button_area_withWeeDay" onclick="openLoading();">搜尋</button>
+					</li>
+					<div id="endDateError" style="width: max-content;"></div>
+				</ul>
+			</div>
+			 <div class="col-lg-6 col-md-12 col-sm-12 Time_area">
+				<div class="home-demo">
+					<div class="large-12 columns">
+						<div class="owl-carousel owl-loaded owl-drag">
+							
+								
+								
+						<div class="owl-stage-outer"><div class="owl-stage" style="transform: translate3d(0px, 0px, 0px); transition: all; width: 672px;"><div class="owl-item active" style="width: 666.5px; margin-right: 5px;"><div class="item">
+								 	<button type="submit" class="btn btn-warning TodayBtn InputSelected" name="selectedDate" value="2025/07/04" data-datecurrent="0">07/04(Fri)</button>
+								</div></div></div></div><div class="owl-nav disabled"><button type="button" role="presentation" class="owl-prev disabled"><span aria-label="Previous">‹</span></button><button type="button" role="presentation" class="owl-next disabled"><span aria-label="Next">›</span></button></div><div class="owl-dots disabled"></div></div>
+					</div>
+					<input type="hidden" id="hiddenSelectedDate" class="selectedDate" name="selectedDate" value="2025/07/04">
+                    <input type="hidden" id="hiddenIsSearchBtn" class="isSearchBtn" name="isSearchBtn" value="true">	
+				</div>
+			</div>
+			<div class="col-lg-6 col-md-12 col-sm-12">
+				<div class="Icon_area">
+					<ul>
+						
+							<li>
+							<span id="goCreate" class="plusImgSpan">
+								<img src="/frontend/img/icon_plus.png" title="新增">
+							</span>
+							</li>		
+						
+						
+						<li id="searchImg">
+							<img src="/frontend/img/icon_search.png" title="搜尋">
+						</li>
+						<li data-toggle="modal" data-target=".bd-example-modal-02" style="cursor:pointer">
+							<img src="/frontend/img/icon_rule.png" title="規則">
+						</li>
+					</ul>
+				</div>
+				<div class="Time_section_area">
+					<div class="btn-group" role="group" aria-label="Basic example">
+						
+							<button type="submit" class="btn Btn_Blue Btn_choose" name="selectedTimePeriod" value="MORNING">上午</button>
+						
+							<button type="submit" class="btn Btn_Blue_white" name="selectedTimePeriod" value="AFTERNOON">下午</button>
+						
+							<button type="submit" class="btn Btn_Blue_white" name="selectedTimePeriod" value="NIGHT">晚上</button>
+						
+					</div>
+				</div>
+			</div>
+<!-- 			<div class="Search_time .Web_searchTime">查詢時間 <span class='Red_color' th:text="${searchTime}"></span></div> -->
+			<div class="Search_time">仁愛大樓</div>
+			<div class="Color_notice">
+				<ul>
+					<li class="smallText">
+						<div style="text-decoration:underline">本人預約</div>
+						<div></div>
+					</li>
+					<li class="smallText">
+						<div class="Pink_box"></div>
+						<div class="Pink_wording">使用中</div>
+					</li>
+					<li class="smallText">
+						<div class="Green_box"></div>
+						<div class="Green_wording">已預約</div>
+					</li>
+					<li class="smallText">
+						<div class="Pink_line_box"></div>
+						<div class="Pink_wording">借用未報到</div>
+					</li>
+				</ul>
+			</div>
+			<div class="Calendar_Time_area_Fixed">
+				<div>點擊展開明細</div>
+				
+					<div style="text-align:left; padding-left:10px;">07:00 ~</div>
+				
+					<div style="text-align:left; padding-left:10px;">07:30 ~</div>
+				
+					<div style="text-align:left; padding-left:10px;">08:00 ~</div>
+				
+					<div style="text-align:left; padding-left:10px;">08:30 ~</div>
+				
+					<div style="text-align:left; padding-left:10px;">09:00 ~</div>
+				
+					<div style="text-align:left; padding-left:10px;">09:30 ~</div>
+				
+					<div style="text-align:left; padding-left:10px;">10:00 ~</div>
+				
+					<div style="text-align:left; padding-left:10px;">10:30 ~</div>
+				
+					<div style="text-align:left; padding-left:10px;">11:00 ~</div>
+				
+					<div style="text-align:left; padding-left:10px;">11:30 ~</div>
+				
+					<div style="text-align:left; padding-left:10px;">12:00 ~</div>
+				
+					<div style="text-align:left; padding-left:10px;">12:30 ~</div>
+				
+					
+				
+			</div>
+		</div>
+	</form>
+	<!-- 搜尋結果 -->
+	<br>
+	<br>
+	<div class="Booking_calendar Fixed-open table_scroll" id="timeTableMeetingRoom"> <!-- Stage2增修_編號8: 因為新增按紐，更改toggle部分div的Id以適用新的CSS By Eddie -->
+	<div class="Booking_time_line Booking_line_position_55" style="display:none"></div>
+	
+		<div class="Booking_area">
+			<div class="Calendar_Time_area">
+				<div></div>
+				
+					<div>07:00</div>
+				
+					<div>07:30</div>
+				
+					<div>08:00</div>
+				
+					<div>08:30</div>
+				
+					<div>09:00</div>
+				
+					<div>09:30</div>
+				
+					<div>10:00</div>
+				
+					<div>10:30</div>
+				
+					<div>11:00</div>
+				
+					<div>11:30</div>
+				
+					<div>12:00</div>
+				
+					<div>12:30</div>
+				
+					
+				 <!-- 增修編號9: 修改時間軸 -->
+				<div class="transparentTwoBlock"></div>
+				<div class="transparentTwoBlock"></div>
+				
+				
+				
+				
+			</div>
+			<input type="hidden" name="meetingRoomPK" value="49">
+			<div class="col-12" id="errDiv" style="display:none"></div>
+			<div class="Title ToggleTitle" data-toggle="collapse" data-target="#meetingRoomDiv-49" aria-expanded="false" aria-controls="collapseExample" style="cursor: pointer;">
+				<!-- 增修編號9 樓層字體縮小 -->
+				<div class="Floor" style="font-size: 1.2rem">15F</div>
+				<div class="Room">第1會議室</div>
+				<div class="Other">
+					<span><img src="/frontend/img/icon_people.png"><span class="Yello_color">20</span></span>	
+					</div>
+					<!-- 增修編號9 移除分機 -->
+				<!-- <div class="Other">
+					<span><img th:src="@{/frontend/img/icon_phone.png}"><span class="Yello_color">1181</span></span>
+				</div> -->
+			</div>
+			
+				
+					<div>
+		<div>
+		<div class="modal fade bd-deleteBookingRecord-modal-2121308 meetingRecord-2121308" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="myLargeModalLabel">刪除會議室預約</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="Text_area">
+						<ul>
+							<li>2025/07/04 07:00~23:00</li>
+							<li>金檢一般業務檢查查核</li>
+							<li>國泰人壽 稽核室 林奕希</li>
+						</ul>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn Btn_Light_Green Btn_basic" onclick="doDelete(2121308)">確定刪除</button>
+						<button type="button" class="btn Btn_Gray Btn_basic" data-dismiss="modal">取消</button>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+		<div>
+		<div class="modal fade bd-notReported-modal-2121308 meetingRecord-2121308" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						
+							<h5 class="modal-title" id="myLargeModalLabel">註記未報到</h5>
+						
+						
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="Text_area">
+						<ul>
+							
+								<li>您是否確認註記未報到？</li>
+							
+							
+						</ul>
+					</div>
+					<div class="modal-footer">
+						
+							<button type="button" class="btn Btn_Light_Green Btn_basic" onclick="inserNoShow(2121308)">確定註記</button>
+						
+						
+						<button type="button" class="btn Btn_Gray Btn_basic" data-dismiss="modal">取消</button>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+		<div class="modal fade  bd-bookingRecordList-modal-2121308 meetingRecord-2121308" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						
+						<h1 class="modal-title">金檢一般業務檢查查核</h1>
+						<button type="button" class="close closeDetailBtn" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="modal-body Text_area">
+						
+						<ul>
+							<li class="Green_color">預約日期：</li>
+							<li>2025/07/04 07:00~23:00</li>
+						</ul>
+						<ul>
+							<li class="Green_color">召集人：</li>
+							<li>國泰人壽 稽核室</li>
+							<li>林奕希</li>
+							<li>27551399#2715</li>
+						</ul>
+						<ul>
+							<li class="Green_color">會議內容</li>
+							<li>為什麼會有這個會議 本次議程重點目標 其他補充說明</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+			$('.deleteMeetingRoom').click(function() {
+				$('.closeDetailBtn').click();
+			})
+			$('.notRepoortBtn').change(function() {
+				var modal1 = $(this).attr('data-target')
+				$(modal1).modal('show')
+				$('.closeDetailBtn').click();
+			})
+		</script>
+	</div>
+						<button id="2121308" class="Calendar_block Gray_bg_block meetingRecordBtn Twelve_style" data-endtime="13:00" data-starttime="07:00" data-rowid="1" data-columnid="1">
+							<div class="Company textDis">金檢一般業務檢查查核</div>
+							<div class="Company">國泰人壽</div>
+							<div class="Department">稽核室</div>
+							<!-- 增修編號9 電話上移一列 -->
+							<div class="Section">林奕希 <span class="Number">27551399#2715</span></div>
+						</button>
+				
+				
+				
+				
+				
+				
+				
+				
+			
+		</div>
+		<div class="Meeting_detail">
+			<div class="collapse multi-collapse ToggleCard " id="meetingRoomDiv-49" data-hasloadedimage="false" data-meetingroompk="49">
+				<div class="card card-body">
+					<div class="Text_area row">
+						<div class="col-lg-6 col-md-4">
+							<ul>
+								<li class="Red_color">會議室相關資訊</li>
+								<ul class="Title8">
+									<li class="Green_color">地址：</li>
+									<li>臺北市大安區仁愛路四段296號</li>
+								</ul>
+								<ul class="Title8">
+									<li class="Green_color">樓層：</li>
+									<li>15F</li>
+								</ul>
+								<ul class="Title8">
+									<li class="Green_color">容納人數：</li>
+									<li>20人</li>
+								</ul>
+								<ul class="Title8">
+									<li class="Green_color">內建設備：</li>
+									<li>視訊設備、布幕、投影機、電視、HDMI線</li>
+								</ul>
+								<!-- 增修編號9 移除會議室管理員 -->
+								<!-- <ul class="Title8">
+									<li class="Green_color">會議室管理員：</li>
+									<li style="display: inline-grid;">
+										<th:block th:each="dataUser: ${meetingRoom.meetingRoomOwners}">
+											<p th:text="${dataUser.userId.bu1+'-'+dataUser.userId.bu2+'-'+dataUser.userId.bu3+'-'+dataUser.userId.empName}">張O華</p>
+										</th:block>
+									</li>
+								</ul> -->
+								<ul class="Title8">
+									<li class="Green_color">描述：</li>
+									<li style="display: inline-flex;">開會時請勿攜帶食物及飲料進入會議室</li>
+								</ul>
+								<ul class="Title8">
+									<li class="Green_color">借用規則：</li>
+									<li style="display: inline-flex;">各會議室座椅，請勿移動至其他會議室使用，如會議室座椅數量不足可至貨梯前鐵櫃借用摺疊椅。</li>
+								</ul>
+							</ul>
+						</div>
+						<div class="col-lg-6 col-md-12 Meeting_room_pic">
+<!--						<th:block th:unless="${#lists.isEmpty(meetingRoom.meetingRoomImages)}">	-->
+<!--							<th:block th:each="image : ${meetingRoom.meetingRoomImages}">-->
+<!--								<span data-toggle="modal" data-target="#extendImgModal">-->
+<!--								<img class="extendImg" th:src="${'data:image/png;base64,'+image.base64Str}" -->
+<!--									th:onerror="'this.src=\'' + @{/frontend/img/default-img.png} + '\';'" />-->
+<!--								</span>	-->
+<!--							</th:block>-->
+<!--						</th:block>-->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	
+		<div class="Booking_area">
+			<div class="Calendar_Time_area">
+				<div></div>
+				
+					<div>07:00</div>
+				
+					<div>07:30</div>
+				
+					<div>08:00</div>
+				
+					<div>08:30</div>
+				
+					<div>09:00</div>
+				
+					<div>09:30</div>
+				
+					<div>10:00</div>
+				
+					<div>10:30</div>
+				
+					<div>11:00</div>
+				
+					<div>11:30</div>
+				
+					<div>12:00</div>
+				
+					<div>12:30</div>
+				
+					
+				 <!-- 增修編號9: 修改時間軸 -->
+				<div class="transparentTwoBlock"></div>
+				<div class="transparentTwoBlock"></div>
+				
+				
+				
+				
+			</div>
+			<input type="hidden" name="meetingRoomPK" value="54">
+			<div class="col-12" id="errDiv" style="display:none"></div>
+			<div class="Title ToggleTitle" data-toggle="collapse" data-target="#meetingRoomDiv-54" aria-expanded="false" aria-controls="collapseExample" style="cursor: pointer;">
+				<!-- 增修編號9 樓層字體縮小 -->
+				<div class="Floor" style="font-size: 1.2rem">15F</div>
+				<div class="Room">第2會議室</div>
+				<div class="Other">
+					<span><img src="/frontend/img/icon_people.png"><span class="Yello_color">12</span></span>	
+					</div>
+					<!-- 增修編號9 移除分機 -->
+				<!-- <div class="Other">
+					<span><img th:src="@{/frontend/img/icon_phone.png}"><span class="Yello_color">1182</span></span>
+				</div> -->
+			</div>
+			
+				
+				
+				
+					
+					
+						<button class="Calendar_block One_style Gray_bg_block" data-endtime="07:30" data-starttime="07:00" data-meetingroompk="54"></button>
+					
+				
+				
+				
+				
+				
+				
+			
+				
+				
+				
+					
+					
+						<button class="Calendar_block One_style Gray_bg_block" data-endtime="08:00" data-starttime="07:30" data-meetingroompk="54"></button>
+					
+				
+				
+				
+				
+				
+				
+			
+				
+				
+				
+					
+					
+						<button class="Calendar_block One_style Gray_bg_block" data-endtime="08:30" data-starttime="08:00" data-meetingroompk="54"></button>
+					
+				
+				
+				
+				
+				
+				
+			
+				
+				
+				
+					
+					
+						<button class="Calendar_block One_style Gray_bg_block" data-endtime="09:00" data-starttime="08:30" data-meetingroompk="54"></button>
+					
+				
+				
+				
+				
+				
+				
+			
+				
+					<div>
+		<div>
+		<div class="modal fade bd-deleteBookingRecord-modal-2134129 meetingRecord-2134129" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="myLargeModalLabel">刪除會議室預約</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="Text_area">
+						<ul>
+							<li>2025/07/04 09:00~11:00</li>
+							<li>ISO稽核教育(一)</li>
+							<li>國泰人壽 客戶關係促進部 何駿</li>
+						</ul>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn Btn_Light_Green Btn_basic" onclick="doDelete(2134129)">確定刪除</button>
+						<button type="button" class="btn Btn_Gray Btn_basic" data-dismiss="modal">取消</button>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+		<div>
+		<div class="modal fade bd-notReported-modal-2134129 meetingRecord-2134129" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						
+							<h5 class="modal-title" id="myLargeModalLabel">註記未報到</h5>
+						
+						
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="Text_area">
+						<ul>
+							
+								<li>您是否確認註記未報到？</li>
+							
+							
+						</ul>
+					</div>
+					<div class="modal-footer">
+						
+							<button type="button" class="btn Btn_Light_Green Btn_basic" onclick="inserNoShow(2134129)">確定註記</button>
+						
+						
+						<button type="button" class="btn Btn_Gray Btn_basic" data-dismiss="modal">取消</button>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+		<div class="modal fade  bd-bookingRecordList-modal-2134129 meetingRecord-2134129" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						
+						<h1 class="modal-title">ISO稽核教育(一)</h1>
+						<button type="button" class="close closeDetailBtn" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="modal-body Text_area">
+						
+						<ul>
+							<li class="Green_color">預約日期：</li>
+							<li>2025/07/04 09:00~11:00</li>
+						</ul>
+						<ul>
+							<li class="Green_color">召集人：</li>
+							<li>國泰人壽 客戶關係促進部</li>
+							<li>何駿</li>
+							<li>27551399#3934</li>
+						</ul>
+						<ul>
+							<li class="Green_color">會議內容</li>
+							<li>為什麼會有這個會議 本次議程重點目標 其他補充說明</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+			$('.deleteMeetingRoom').click(function() {
+				$('.closeDetailBtn').click();
+			})
+			$('.notRepoortBtn').change(function() {
+				var modal1 = $(this).attr('data-target')
+				$(modal1).modal('show')
+				$('.closeDetailBtn').click();
+			})
+		</script>
+	</div>
+						<button id="2134129" class="Calendar_block Gray_bg_block meetingRecordBtn Four_style" data-endtime="11:00" data-starttime="09:00" data-rowid="2" data-columnid="5">
+							<div class="Company textDis">ISO稽核教育(一)</div>
+							<div class="Company">國泰人壽</div>
+							<div class="Department">客戶關係促進部</div>
+							<!-- 增修編號9 電話上移一列 -->
+							<div class="Section">何駿 <span class="Number">27551399#3934</span></div>
+						</button>
+				
+				
+				
+				
+				
+				
+				
+				
+			
+				
+					<div>
+		<div>
+		<div class="modal fade bd-deleteBookingRecord-modal-2134133 meetingRecord-2134133" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="myLargeModalLabel">刪除會議室預約</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="Text_area">
+						<ul>
+							<li>2025/07/04 11:00~12:00</li>
+							<li>ISO稽核教育</li>
+							<li>國泰人壽 客戶關係促進部 郭祉筠</li>
+						</ul>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn Btn_Light_Green Btn_basic" onclick="doDelete(2134133)">確定刪除</button>
+						<button type="button" class="btn Btn_Gray Btn_basic" data-dismiss="modal">取消</button>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+		<div>
+		<div class="modal fade bd-notReported-modal-2134133 meetingRecord-2134133" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						
+							<h5 class="modal-title" id="myLargeModalLabel">註記未報到</h5>
+						
+						
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="Text_area">
+						<ul>
+							
+								<li>您是否確認註記未報到？</li>
+							
+							
+						</ul>
+					</div>
+					<div class="modal-footer">
+						
+							<button type="button" class="btn Btn_Light_Green Btn_basic" onclick="inserNoShow(2134133)">確定註記</button>
+						
+						
+						<button type="button" class="btn Btn_Gray Btn_basic" data-dismiss="modal">取消</button>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+		<div class="modal fade  bd-bookingRecordList-modal-2134133 meetingRecord-2134133" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						
+						<h1 class="modal-title">ISO稽核教育</h1>
+						<button type="button" class="close closeDetailBtn" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="modal-body Text_area">
+						
+						<ul>
+							<li class="Green_color">預約日期：</li>
+							<li>2025/07/04 11:00~12:00</li>
+						</ul>
+						<ul>
+							<li class="Green_color">召集人：</li>
+							<li>國泰人壽 客戶關係促進部</li>
+							<li>郭祉筠</li>
+							<li>27551399#3936</li>
+						</ul>
+						<ul>
+							<li class="Green_color">會議內容</li>
+							<li>為什麼會有這個會議 本次議程重點目標 其他補充說明</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+			$('.deleteMeetingRoom').click(function() {
+				$('.closeDetailBtn').click();
+			})
+			$('.notRepoortBtn').change(function() {
+				var modal1 = $(this).attr('data-target')
+				$(modal1).modal('show')
+				$('.closeDetailBtn').click();
+			})
+		</script>
+	</div>
+						<button id="2134133" class="Calendar_block Gray_bg_block meetingRecordBtn Two_style" data-endtime="12:00" data-starttime="11:00" data-rowid="2" data-columnid="6">
+							<div class="Company textDis">ISO稽核教育</div>
+							<div class="Company">國泰人壽</div>
+							<div class="Department">客戶關係促進部</div>
+							<!-- 增修編號9 電話上移一列 -->
+							<div class="Section">郭祉筠 <span class="Number">27551399#3936</span></div>
+						</button>
+				
+				
+				
+				
+				
+				
+				
+				
+			
+				
+				
+				
+					
+					
+						<button class="Calendar_block One_style Gray_bg_block" data-endtime="12:30" data-starttime="12:00" data-meetingroompk="54"></button>
+					
+				
+				
+				
+				
+				
+				
+			
+				
+				
+				
+					
+					
+						<button class="Calendar_block One_style Gray_bg_block" data-endtime="13:00" data-starttime="12:30" data-meetingroompk="54"></button>
+					
+				
+				
+				
+				
+				
+				
+			
+		</div>
+		<div class="Meeting_detail">
+			<div class="collapse multi-collapse ToggleCard " id="meetingRoomDiv-54" data-hasloadedimage="false" data-meetingroompk="54">
+				<div class="card card-body">
+					<div class="Text_area row">
+						<div class="col-lg-6 col-md-4">
+							<ul>
+								<li class="Red_color">會議室相關資訊</li>
+								<ul class="Title8">
+									<li class="Green_color">地址：</li>
+									<li>臺北市大安區仁愛路四段296號</li>
+								</ul>
+								<ul class="Title8">
+									<li class="Green_color">樓層：</li>
+									<li>15F</li>
+								</ul>
+								<ul class="Title8">
+									<li class="Green_color">容納人數：</li>
+									<li>12人</li>
+								</ul>
+								<ul class="Title8">
+									<li class="Green_color">內建設備：</li>
+									<li>視訊設備、布幕、電視、HDMI線</li>
+								</ul>
+								<!-- 增修編號9 移除會議室管理員 -->
+								<!-- <ul class="Title8">
+									<li class="Green_color">會議室管理員：</li>
+									<li style="display: inline-grid;">
+										<th:block th:each="dataUser: ${meetingRoom.meetingRoomOwners}">
+											<p th:text="${dataUser.userId.bu1+'-'+dataUser.userId.bu2+'-'+dataUser.userId.bu3+'-'+dataUser.userId.empName}">張O華</p>
+										</th:block>
+									</li>
+								</ul> -->
+								<ul class="Title8">
+									<li class="Green_color">描述：</li>
+									<li style="display: inline-flex;">開會時請勿攜帶食物及飲料進入會議室</li>
+								</ul>
+								<ul class="Title8">
+									<li class="Green_color">借用規則：</li>
+									<li style="display: inline-flex;">各會議室座椅，請勿移動至其他會議室使用，如會議室座椅數量不足可至貨梯前鐵櫃借用摺疊椅。</li>
+								</ul>
+							</ul>
+						</div>
+						<div class="col-lg-6 col-md-12 Meeting_room_pic">
+<!--						<th:block th:unless="${#lists.isEmpty(meetingRoom.meetingRoomImages)}">	-->
+<!--							<th:block th:each="image : ${meetingRoom.meetingRoomImages}">-->
+<!--								<span data-toggle="modal" data-target="#extendImgModal">-->
+<!--								<img class="extendImg" th:src="${'data:image/png;base64,'+image.base64Str}" -->
+<!--									th:onerror="'this.src=\'' + @{/frontend/img/default-img.png} + '\';'" />-->
+<!--								</span>	-->
+<!--							</th:block>-->
+<!--						</th:block>-->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	
+		<div class="Booking_area">
+			<div class="Calendar_Time_area">
+				<div></div>
+				
+					<div>07:00</div>
+				
+					<div>07:30</div>
+				
+					<div>08:00</div>
+				
+					<div>08:30</div>
+				
+					<div>09:00</div>
+				
+					<div>09:30</div>
+				
+					<div>10:00</div>
+				
+					<div>10:30</div>
+				
+					<div>11:00</div>
+				
+					<div>11:30</div>
+				
+					<div>12:00</div>
+				
+					<div>12:30</div>
+				
+					
+				 <!-- 增修編號9: 修改時間軸 -->
+				<div class="transparentTwoBlock"></div>
+				<div class="transparentTwoBlock"></div>
+				
+				
+				
+				
+			</div>
+			<input type="hidden" name="meetingRoomPK" value="55">
+			<div class="col-12" id="errDiv" style="display:none"></div>
+			<div class="Title ToggleTitle" data-toggle="collapse" data-target="#meetingRoomDiv-55" aria-expanded="false" aria-controls="collapseExample" style="cursor: pointer;">
+				<!-- 增修編號9 樓層字體縮小 -->
+				<div class="Floor" style="font-size: 1.2rem">15F</div>
+				<div class="Room">第3會議室</div>
+				<div class="Other">
+					<span><img src="/frontend/img/icon_people.png"><span class="Yello_color">15</span></span>	
+					</div>
+					<!-- 增修編號9 移除分機 -->
+				<!-- <div class="Other">
+					<span><img th:src="@{/frontend/img/icon_phone.png}"><span class="Yello_color">1183</span></span>
+				</div> -->
+			</div>
+			
+				
+					<div>
+		<div>
+		<div class="modal fade bd-deleteBookingRecord-modal-2107057 meetingRecord-2107057" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="myLargeModalLabel">刪除會議室預約</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="Text_area">
+						<ul>
+							<li>2025/07/04 07:00~23:00</li>
+							<li>會計師內部控制制度查核</li>
+							<li>國泰人壽 稽核室 吳泰霖</li>
+						</ul>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn Btn_Light_Green Btn_basic" onclick="doDelete(2107057)">確定刪除</button>
+						<button type="button" class="btn Btn_Gray Btn_basic" data-dismiss="modal">取消</button>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+		<div>
+		<div class="modal fade bd-notReported-modal-2107057 meetingRecord-2107057" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						
+							<h5 class="modal-title" id="myLargeModalLabel">註記未報到</h5>
+						
+						
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="Text_area">
+						<ul>
+							
+								<li>您是否確認註記未報到？</li>
+							
+							
+						</ul>
+					</div>
+					<div class="modal-footer">
+						
+							<button type="button" class="btn Btn_Light_Green Btn_basic" onclick="inserNoShow(2107057)">確定註記</button>
+						
+						
+						<button type="button" class="btn Btn_Gray Btn_basic" data-dismiss="modal">取消</button>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+		<div class="modal fade  bd-bookingRecordList-modal-2107057 meetingRecord-2107057" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						
+						<h1 class="modal-title">會計師內部控制制度查核</h1>
+						<button type="button" class="close closeDetailBtn" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="modal-body Text_area">
+						
+						<ul>
+							<li class="Green_color">預約日期：</li>
+							<li>2025/07/04 07:00~23:00</li>
+						</ul>
+						<ul>
+							<li class="Green_color">召集人：</li>
+							<li>國泰人壽 稽核室</li>
+							<li>吳泰霖</li>
+							<li>27551399#2701</li>
+						</ul>
+						<ul>
+							<li class="Green_color">會議內容</li>
+							<li>為什麼會有這個會議 本次議程重點目標 其他補充說明</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+			$('.deleteMeetingRoom').click(function() {
+				$('.closeDetailBtn').click();
+			})
+			$('.notRepoortBtn').change(function() {
+				var modal1 = $(this).attr('data-target')
+				$(modal1).modal('show')
+				$('.closeDetailBtn').click();
+			})
+		</script>
+	</div>
+						<button id="2107057" class="Calendar_block Gray_bg_block meetingRecordBtn Twelve_style" data-endtime="13:00" data-starttime="07:00" data-rowid="3" data-columnid="1">
+							<div class="Company textDis">會計師內部控制制度查核</div>
+							<div class="Company">國泰人壽</div>
+							<div class="Department">稽核室</div>
+							<!-- 增修編號9 電話上移一列 -->
+							<div class="Section">吳泰霖 <span class="Number">27551399#2701</span></div>
+						</button>
+				
+				
+				
+				
+				
+				
+				
+				
+			
+		</div>
+		<div class="Meeting_detail">
+			<div class="collapse multi-collapse ToggleCard " id="meetingRoomDiv-55" data-hasloadedimage="false" data-meetingroompk="55">
+				<div class="card card-body">
+					<div class="Text_area row">
+						<div class="col-lg-6 col-md-4">
+							<ul>
+								<li class="Red_color">會議室相關資訊</li>
+								<ul class="Title8">
+									<li class="Green_color">地址：</li>
+									<li>臺北市大安區仁愛路四段296號</li>
+								</ul>
+								<ul class="Title8">
+									<li class="Green_color">樓層：</li>
+									<li>15F</li>
+								</ul>
+								<ul class="Title8">
+									<li class="Green_color">容納人數：</li>
+									<li>15人</li>
+								</ul>
+								<ul class="Title8">
+									<li class="Green_color">內建設備：</li>
+									<li>布幕、電視</li>
+								</ul>
+								<!-- 增修編號9 移除會議室管理員 -->
+								<!-- <ul class="Title8">
+									<li class="Green_color">會議室管理員：</li>
+									<li style="display: inline-grid;">
+										<th:block th:each="dataUser: ${meetingRoom.meetingRoomOwners}">
+											<p th:text="${dataUser.userId.bu1+'-'+dataUser.userId.bu2+'-'+dataUser.userId.bu3+'-'+dataUser.userId.empName}">張O華</p>
+										</th:block>
+									</li>
+								</ul> -->
+								<ul class="Title8">
+									<li class="Green_color">描述：</li>
+									<li style="display: inline-flex;">開會時請勿攜帶食物及飲料進入會議室</li>
+								</ul>
+								<ul class="Title8">
+									<li class="Green_color">借用規則：</li>
+									<li style="display: inline-flex;">各會議室座椅，請勿移動至其他會議室使用，如會議室座椅數量不足可至貨梯前鐵櫃借用摺疊椅。</li>
+								</ul>
+							</ul>
+						</div>
+						<div class="col-lg-6 col-md-12 Meeting_room_pic">
+<!--						<th:block th:unless="${#lists.isEmpty(meetingRoom.meetingRoomImages)}">	-->
+<!--							<th:block th:each="image : ${meetingRoom.meetingRoomImages}">-->
+<!--								<span data-toggle="modal" data-target="#extendImgModal">-->
+<!--								<img class="extendImg" th:src="${'data:image/png;base64,'+image.base64Str}" -->
+<!--									th:onerror="'this.src=\'' + @{/frontend/img/default-img.png} + '\';'" />-->
+<!--								</span>	-->
+<!--							</th:block>-->
+<!--						</th:block>-->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	
+		<div class="Booking_area">
+			<div class="Calendar_Time_area">
+				<div></div>
+				
+					<div>07:00</div>
+				
+					<div>07:30</div>
+				
+					<div>08:00</div>
+				
+					<div>08:30</div>
+				
+					<div>09:00</div>
+				
+					<div>09:30</div>
+				
+					<div>10:00</div>
+				
+					<div>10:30</div>
+				
+					<div>11:00</div>
+				
+					<div>11:30</div>
+				
+					<div>12:00</div>
+				
+					<div>12:30</div>
+				
+					
+				 <!-- 增修編號9: 修改時間軸 -->
+				<div class="transparentTwoBlock"></div>
+				<div class="transparentTwoBlock"></div>
+				
+				
+				
+				
+			</div>
+			<input type="hidden" name="meetingRoomPK" value="56">
+			<div class="col-12" id="errDiv" style="display:none"></div>
+			<div class="Title ToggleTitle" data-toggle="collapse" data-target="#meetingRoomDiv-56" aria-expanded="false" aria-controls="collapseExample" style="cursor: pointer;">
+				<!-- 增修編號9 樓層字體縮小 -->
+				<div class="Floor" style="font-size: 1.2rem">15F</div>
+				<div class="Room">第4會議室</div>
+				<div class="Other">
+					<span><img src="/frontend/img/icon_people.png"><span class="Yello_color">15</span></span>	
+					</div>
+					<!-- 增修編號9 移除分機 -->
+				<!-- <div class="Other">
+					<span><img th:src="@{/frontend/img/icon_phone.png}"><span class="Yello_color">1184</span></span>
+				</div> -->
+			</div>
+			
+				
+					<div>
+		<div>
+		<div class="modal fade bd-deleteBookingRecord-modal-2131000 meetingRecord-2131000" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="myLargeModalLabel">刪除會議室預約</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="Text_area">
+						<ul>
+							<li>2025/07/04 07:00~23:00</li>
+							<li>金檢一般業務檢查</li>
+							<li>國泰人壽 稽核室 李俊德</li>
+						</ul>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn Btn_Light_Green Btn_basic" onclick="doDelete(2131000)">確定刪除</button>
+						<button type="button" class="btn Btn_Gray Btn_basic" data-dismiss="modal">取消</button>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+		<div>
+		<div class="modal fade bd-notReported-modal-2131000 meetingRecord-2131000" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						
+							<h5 class="modal-title" id="myLargeModalLabel">註記未報到</h5>
+						
+						
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="Text_area">
+						<ul>
+							
+								<li>您是否確認註記未報到？</li>
+							
+							
+						</ul>
+					</div>
+					<div class="modal-footer">
+						
+							<button type="button" class="btn Btn_Light_Green Btn_basic" onclick="inserNoShow(2131000)">確定註記</button>
+						
+						
+						<button type="button" class="btn Btn_Gray Btn_basic" data-dismiss="modal">取消</button>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+		<div class="modal fade  bd-bookingRecordList-modal-2131000 meetingRecord-2131000" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						
+						<h1 class="modal-title">金檢一般業務檢查</h1>
+						<button type="button" class="close closeDetailBtn" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="modal-body Text_area">
+						
+						<ul>
+							<li class="Green_color">預約日期：</li>
+							<li>2025/07/04 07:00~23:00</li>
+						</ul>
+						<ul>
+							<li class="Green_color">召集人：</li>
+							<li>國泰人壽 稽核室</li>
+							<li>李俊德</li>
+							<li>27551399#2711</li>
+						</ul>
+						<ul>
+							<li class="Green_color">會議內容</li>
+							<li>為什麼會有這個會議 本次議程重點目標 其他補充說明</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+			$('.deleteMeetingRoom').click(function() {
+				$('.closeDetailBtn').click();
+			})
+			$('.notRepoortBtn').change(function() {
+				var modal1 = $(this).attr('data-target')
+				$(modal1).modal('show')
+				$('.closeDetailBtn').click();
+			})
+		</script>
+	</div>
+						<button id="2131000" class="Calendar_block Gray_bg_block meetingRecordBtn Twelve_style" data-endtime="13:00" data-starttime="07:00" data-rowid="4" data-columnid="1">
+							<div class="Company textDis">金檢一般業務檢查</div>
+							<div class="Company">國泰人壽</div>
+							<div class="Department">稽核室</div>
+							<!-- 增修編號9 電話上移一列 -->
+							<div class="Section">李俊德 <span class="Number">27551399#2711</span></div>
+						</button>
+				
+				
+				
+				
+				
+				
+				
+				
+			
+		</div>
+		<div class="Meeting_detail">
+			<div class="collapse multi-collapse ToggleCard " id="meetingRoomDiv-56" data-hasloadedimage="false" data-meetingroompk="56">
+				<div class="card card-body">
+					<div class="Text_area row">
+						<div class="col-lg-6 col-md-4">
+							<ul>
+								<li class="Red_color">會議室相關資訊</li>
+								<ul class="Title8">
+									<li class="Green_color">地址：</li>
+									<li>臺北市大安區仁愛路四段296號</li>
+								</ul>
+								<ul class="Title8">
+									<li class="Green_color">樓層：</li>
+									<li>15F</li>
+								</ul>
+								<ul class="Title8">
+									<li class="Green_color">容納人數：</li>
+									<li>15人</li>
+								</ul>
+								<ul class="Title8">
+									<li class="Green_color">內建設備：</li>
+									<li>布幕、電視、HDMI線</li>
+								</ul>
+								<!-- 增修編號9 移除會議室管理員 -->
+								<!-- <ul class="Title8">
+									<li class="Green_color">會議室管理員：</li>
+									<li style="display: inline-grid;">
+										<th:block th:each="dataUser: ${meetingRoom.meetingRoomOwners}">
+											<p th:text="${dataUser.userId.bu1+'-'+dataUser.userId.bu2+'-'+dataUser.userId.bu3+'-'+dataUser.userId.empName}">張O華</p>
+										</th:block>
+									</li>
+								</ul> -->
+								<ul class="Title8">
+									<li class="Green_color">描述：</li>
+									<li style="display: inline-flex;">開會時請勿攜帶食物及飲料進入會議室</li>
+								</ul>
+								<ul class="Title8">
+									<li class="Green_color">借用規則：</li>
+									<li style="display: inline-flex;">各會議室座椅，請勿移動至其他會議室使用，如會議室座椅數量不足可至貨梯前鐵櫃借用摺疊椅。</li>
+								</ul>
+							</ul>
+						</div>
+						<div class="col-lg-6 col-md-12 Meeting_room_pic">
+<!--						<th:block th:unless="${#lists.isEmpty(meetingRoom.meetingRoomImages)}">	-->
+<!--							<th:block th:each="image : ${meetingRoom.meetingRoomImages}">-->
+<!--								<span data-toggle="modal" data-target="#extendImgModal">-->
+<!--								<img class="extendImg" th:src="${'data:image/png;base64,'+image.base64Str}" -->
+<!--									th:onerror="'this.src=\'' + @{/frontend/img/default-img.png} + '\';'" />-->
+<!--								</span>	-->
+<!--							</th:block>-->
+<!--						</th:block>-->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	
+		<div class="Booking_area">
+			<div class="Calendar_Time_area">
+				<div></div>
+				
+					<div>07:00</div>
+				
+					<div>07:30</div>
+				
+					<div>08:00</div>
+				
+					<div>08:30</div>
+				
+					<div>09:00</div>
+				
+					<div>09:30</div>
+				
+					<div>10:00</div>
+				
+					<div>10:30</div>
+				
+					<div>11:00</div>
+				
+					<div>11:30</div>
+				
+					<div>12:00</div>
+				
+					<div>12:30</div>
+				
+					
+				 <!-- 增修編號9: 修改時間軸 -->
+				<div class="transparentTwoBlock"></div>
+				<div class="transparentTwoBlock"></div>
+				
+				
+				
+				
+			</div>
+			<input type="hidden" name="meetingRoomPK" value="57">
+			<div class="col-12" id="errDiv" style="display:none"></div>
+			<div class="Title ToggleTitle" data-toggle="collapse" data-target="#meetingRoomDiv-57" aria-expanded="false" aria-controls="collapseExample" style="cursor: pointer;">
+				<!-- 增修編號9 樓層字體縮小 -->
+				<div class="Floor" style="font-size: 1.2rem">15F</div>
+				<div class="Room">第6會議室</div>
+				<div class="Other">
+					<span><img src="/frontend/img/icon_people.png"><span class="Yello_color">60</span></span>	
+					</div>
+					<!-- 增修編號9 移除分機 -->
+				<!-- <div class="Other">
+					<span><img th:src="@{/frontend/img/icon_phone.png}"><span class="Yello_color">1186, 1192</span></span>
+				</div> -->
+			</div>
+			
+				
+				
+				
+					
+					
+						<button class="Calendar_block One_style Gray_bg_block" data-endtime="07:30" data-starttime="07:00" data-meetingroompk="57"></button>
+					
+				
+				
+				
+				
+				
+				
+			
+				
+				
+				
+					
+					
+						<button class="Calendar_block One_style Gray_bg_block" data-endtime="08:00" data-starttime="07:30" data-meetingroompk="57"></button>
+					
+				
+				
+				
+				
+				
+				
+			
+				
+				
+				
+					
+					
+						<button class="Calendar_block One_style Gray_bg_block" data-endtime="08:30" data-starttime="08:00" data-meetingroompk="57"></button>
+					
+				
+				
+				
+				
+				
+				
+			
+				
+				
+				
+					
+					
+						<button class="Calendar_block One_style Gray_bg_block" data-endtime="09:00" data-starttime="08:30" data-meetingroompk="57"></button>
+					
+				
+				
+				
+				
+				
+				
+			
+				
+					<div>
+		<div>
+		<div class="modal fade bd-deleteBookingRecord-modal-2013028 meetingRecord-2013028" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="myLargeModalLabel">刪除會議室預約</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="Text_area">
+						<ul>
+							<li>2025/07/04 09:00~10:00</li>
+							<li>業務部部會</li>
+							<li>國泰人壽 業務部 張品涵</li>
+						</ul>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn Btn_Light_Green Btn_basic" onclick="doDelete(2013028)">確定刪除</button>
+						<button type="button" class="btn Btn_Gray Btn_basic" data-dismiss="modal">取消</button>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+		<div>
+		<div class="modal fade bd-notReported-modal-2013028 meetingRecord-2013028" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						
+							<h5 class="modal-title" id="myLargeModalLabel">註記未報到</h5>
+						
+						
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="Text_area">
+						<ul>
+							
+								<li>您是否確認註記未報到？</li>
+							
+							
+						</ul>
+					</div>
+					<div class="modal-footer">
+						
+							<button type="button" class="btn Btn_Light_Green Btn_basic" onclick="inserNoShow(2013028)">確定註記</button>
+						
+						
+						<button type="button" class="btn Btn_Gray Btn_basic" data-dismiss="modal">取消</button>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+		<div class="modal fade  bd-bookingRecordList-modal-2013028 meetingRecord-2013028" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						
+						<h1 class="modal-title">業務部部會</h1>
+						<button type="button" class="close closeDetailBtn" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="modal-body Text_area">
+						
+						<ul>
+							<li class="Green_color">預約日期：</li>
+							<li>2025/07/04 09:00~10:00</li>
+						</ul>
+						<ul>
+							<li class="Green_color">召集人：</li>
+							<li>國泰人壽 業務部</li>
+							<li>張品涵</li>
+							<li>27551399#2135</li>
+						</ul>
+						<ul>
+							<li class="Green_color">會議內容</li>
+							<li></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+			$('.deleteMeetingRoom').click(function() {
+				$('.closeDetailBtn').click();
+			})
+			$('.notRepoortBtn').change(function() {
+				var modal1 = $(this).attr('data-target')
+				$(modal1).modal('show')
+				$('.closeDetailBtn').click();
+			})
+		</script>
+	</div>
+						<button id="2013028" class="Calendar_block Gray_bg_block meetingRecordBtn Two_style" data-endtime="10:00" data-starttime="09:00" data-rowid="5" data-columnid="5">
+							<div class="Company textDis">業務部部會</div>
+							<div class="Company">國泰人壽</div>
+							<div class="Department">業務部</div>
+							<!-- 增修編號9 電話上移一列 -->
+							<div class="Section">張品涵 <span class="Number">27551399#2135</span></div>
+						</button>
+				
+				
+				
+				
+				
+				
+				
+				
+			
+				
+					<div>
+		<div>
+		<div class="modal fade bd-deleteBookingRecord-modal-1810344 meetingRecord-1810344" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="myLargeModalLabel">刪除會議室預約</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="Text_area">
+						<ul>
+							<li>2025/07/04 10:00~12:00</li>
+							<li>業務部部會</li>
+							<li>國泰人壽 綜合企劃部 楊靜宜</li>
+						</ul>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn Btn_Light_Green Btn_basic" onclick="doDelete(1810344)">確定刪除</button>
+						<button type="button" class="btn Btn_Gray Btn_basic" data-dismiss="modal">取消</button>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+		<div>
+		<div class="modal fade bd-notReported-modal-1810344 meetingRecord-1810344" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						
+							<h5 class="modal-title" id="myLargeModalLabel">註記未報到</h5>
+						
+						
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="Text_area">
+						<ul>
+							
+								<li>您是否確認註記未報到？</li>
+							
+							
+						</ul>
+					</div>
+					<div class="modal-footer">
+						
+							<button type="button" class="btn Btn_Light_Green Btn_basic" onclick="inserNoShow(1810344)">確定註記</button>
+						
+						
+						<button type="button" class="btn Btn_Gray Btn_basic" data-dismiss="modal">取消</button>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+		<div class="modal fade  bd-bookingRecordList-modal-1810344 meetingRecord-1810344" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						
+						<h1 class="modal-title">業務部部會</h1>
+						<button type="button" class="close closeDetailBtn" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="modal-body Text_area">
+						
+						<ul>
+							<li class="Green_color">預約日期：</li>
+							<li>2025/07/04 10:00~12:00</li>
+						</ul>
+						<ul>
+							<li class="Green_color">召集人：</li>
+							<li>國泰人壽 綜合企劃部</li>
+							<li>楊靜宜</li>
+							<li>27551399#2036</li>
+						</ul>
+						<ul>
+							<li class="Green_color">會議內容</li>
+							<li>為什麼會有這個會議 本次議程重點目標 其他補充說明</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+			$('.deleteMeetingRoom').click(function() {
+				$('.closeDetailBtn').click();
+			})
+			$('.notRepoortBtn').change(function() {
+				var modal1 = $(this).attr('data-target')
+				$(modal1).modal('show')
+				$('.closeDetailBtn').click();
+			})
+		</script>
+	</div>
+						<button id="1810344" class="Calendar_block Gray_bg_block meetingRecordBtn Four_style" data-endtime="12:00" data-starttime="10:00" data-rowid="5" data-columnid="6">
+							<div class="Company textDis">業務部部會</div>
+							<div class="Company">國泰人壽</div>
+							<div class="Department">綜合企劃部</div>
+							<!-- 增修編號9 電話上移一列 -->
+							<div class="Section">楊靜宜 <span class="Number">27551399#2036</span></div>
+						</button>
+				
+				
+				
+				
+				
+				
+				
+				
+			
+				
+				
+				
+					
+					
+						<button class="Calendar_block One_style Gray_bg_block" data-endtime="12:30" data-starttime="12:00" data-meetingroompk="57"></button>
+					
+				
+				
+				
+				
+				
+				
+			
+				
+				
+				
+					
+					
+						<button class="Calendar_block One_style Gray_bg_block" data-endtime="13:00" data-starttime="12:30" data-meetingroompk="57"></button>
+					
+				
+				
+				
+				
+				
+				
+			
+		</div>
+		<div class="Meeting_detail">
+			<div class="collapse multi-collapse ToggleCard " id="meetingRoomDiv-57" data-hasloadedimage="false" data-meetingroompk="57">
+				<div class="card card-body">
+					<div class="Text_area row">
+						<div class="col-lg-6 col-md-4">
+							<ul>
+								<li class="Red_color">會議室相關資訊</li>
+								<ul class="Title8">
+									<li class="Green_color">地址：</li>
+									<li>臺北市大安區仁愛路四段296號</li>
+								</ul>
+								<ul class="Title8">
+									<li class="Green_color">樓層：</li>
+									<li>15F</li>
+								</ul>
+								<ul class="Title8">
+									<li class="Green_color">容納人數：</li>
+									<li>60人</li>
+								</ul>
+								<ul class="Title8">
+									<li class="Green_color">內建設備：</li>
+									<li>布幕、移動式麥克風、投影機、電視、HDMI線</li>
+								</ul>
+								<!-- 增修編號9 移除會議室管理員 -->
+								<!-- <ul class="Title8">
+									<li class="Green_color">會議室管理員：</li>
+									<li style="display: inline-grid;">
+										<th:block th:each="dataUser: ${meetingRoom.meetingRoomOwners}">
+											<p th:text="${dataUser.userId.bu1+'-'+dataUser.userId.bu2+'-'+dataUser.userId.bu3+'-'+dataUser.userId.empName}">張O華</p>
+										</th:block>
+									</li>
+								</ul> -->
+								<ul class="Title8">
+									<li class="Green_color">描述：</li>
+									<li style="display: inline-flex;">開會時請勿攜帶食物及飲料進入會議室</li>
+								</ul>
+								<ul class="Title8">
+									<li class="Green_color">借用規則：</li>
+									<li style="display: inline-flex;"></li>
+								</ul>
+							</ul>
+						</div>
+						<div class="col-lg-6 col-md-12 Meeting_room_pic">
+<!--						<th:block th:unless="${#lists.isEmpty(meetingRoom.meetingRoomImages)}">	-->
+<!--							<th:block th:each="image : ${meetingRoom.meetingRoomImages}">-->
+<!--								<span data-toggle="modal" data-target="#extendImgModal">-->
+<!--								<img class="extendImg" th:src="${'data:image/png;base64,'+image.base64Str}" -->
+<!--									th:onerror="'this.src=\'' + @{/frontend/img/default-img.png} + '\';'" />-->
+<!--								</span>	-->
+<!--							</th:block>-->
+<!--						</th:block>-->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	
+		<div class="Booking_area">
+			<div class="Calendar_Time_area">
+				<div></div>
+				
+					<div>07:00</div>
+				
+					<div>07:30</div>
+				
+					<div>08:00</div>
+				
+					<div>08:30</div>
+				
+					<div>09:00</div>
+				
+					<div>09:30</div>
+				
+					<div>10:00</div>
+				
+					<div>10:30</div>
+				
+					<div>11:00</div>
+				
+					<div>11:30</div>
+				
+					<div>12:00</div>
+				
+					<div>12:30</div>
+				
+					
+				 <!-- 增修編號9: 修改時間軸 -->
+				<div class="transparentTwoBlock"></div>
+				<div class="transparentTwoBlock"></div>
+				
+				
+				
+				
+			</div>
+			<input type="hidden" name="meetingRoomPK" value="58">
+			<div class="col-12" id="errDiv" style="display:none"></div>
+			<div class="Title ToggleTitle" data-toggle="collapse" data-target="#meetingRoomDiv-58" aria-expanded="false" aria-controls="collapseExample" style="cursor: pointer;">
+				<!-- 增修編號9 樓層字體縮小 -->
+				<div class="Floor" style="font-size: 1.2rem">15F</div>
+				<div class="Room">第8會議室</div>
+				<div class="Other">
+					<span><img src="/frontend/img/icon_people.png"><span class="Yello_color">12</span></span>	
+					</div>
+					<!-- 增修編號9 移除分機 -->
+				<!-- <div class="Other">
+					<span><img th:src="@{/frontend/img/icon_phone.png}"><span class="Yello_color">1188</span></span>
+				</div> -->
+			</div>
+			
+				
+				
+				
+					
+					
+						<button class="Calendar_block One_style Gray_bg_block" data-endtime="07:30" data-starttime="07:00" data-meetingroompk="58"></button>
+					
+				
+				
+				
+				
+				
+				
+			
+				
+				
+				
+					
+					
+						<button class="Calendar_block One_style Gray_bg_block" data-endtime="08:00" data-starttime="07:30" data-meetingroompk="58"></button>
+					
+				
+				
+				
+				
+				
+				
+			
+				
+				
+				
+					
+					
+						<button class="Calendar_block One_style Gray_bg_block" data-endtime="08:30" data-starttime="08:00" data-meetingroompk="58"></button>
+					
+				
+				
+				
+				
+				
+				
+			
+				
+				
+				
+					
+					
+						<button class="Calendar_block One_style Gray_bg_block" data-endtime="09:00" data-starttime="08:30" data-meetingroompk="58"></button>
+					
+				
+				
+				
+				
+				
+				
+			
+				
+					<div>
+		<div>
+		<div class="modal fade bd-deleteBookingRecord-modal-2154500 meetingRecord-2154500" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="myLargeModalLabel">刪除會議室預約</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="Text_area">
+						<ul>
+							<li>2025/07/04 09:00~10:00</li>
+							<li>會議</li>
+							<li>國泰人壽 職工福利會 陳子祥</li>
+						</ul>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn Btn_Light_Green Btn_basic" onclick="doDelete(2154500)">確定刪除</button>
+						<button type="button" class="btn Btn_Gray Btn_basic" data-dismiss="modal">取消</button>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+		<div>
+		<div class="modal fade bd-notReported-modal-2154500 meetingRecord-2154500" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						
+							<h5 class="modal-title" id="myLargeModalLabel">註記未報到</h5>
+						
+						
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="Text_area">
+						<ul>
+							
+								<li>您是否確認註記未報到？</li>
+							
+							
+						</ul>
+					</div>
+					<div class="modal-footer">
+						
+							<button type="button" class="btn Btn_Light_Green Btn_basic" onclick="inserNoShow(2154500)">確定註記</button>
+						
+						
+						<button type="button" class="btn Btn_Gray Btn_basic" data-dismiss="modal">取消</button>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+		<div class="modal fade  bd-bookingRecordList-modal-2154500 meetingRecord-2154500" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						
+						<h1 class="modal-title">會議</h1>
+						<button type="button" class="close closeDetailBtn" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="modal-body Text_area">
+						
+						<ul>
+							<li class="Green_color">預約日期：</li>
+							<li>2025/07/04 09:00~10:00</li>
+						</ul>
+						<ul>
+							<li class="Green_color">召集人：</li>
+							<li>國泰人壽 職工福利會</li>
+							<li>陳子祥</li>
+							<li>27551399#3325</li>
+						</ul>
+						<ul>
+							<li class="Green_color">會議內容</li>
+							<li>為什麼會有這個會議 本次議程重點目標 其他補充說明</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+			$('.deleteMeetingRoom').click(function() {
+				$('.closeDetailBtn').click();
+			})
+			$('.notRepoortBtn').change(function() {
+				var modal1 = $(this).attr('data-target')
+				$(modal1).modal('show')
+				$('.closeDetailBtn').click();
+			})
+		</script>
+	</div>
+						<button id="2154500" class="Calendar_block Gray_bg_block meetingRecordBtn Two_style" data-endtime="10:00" data-starttime="09:00" data-rowid="6" data-columnid="5">
+							<div class="Company textDis">會議</div>
+							<div class="Company">國泰人壽</div>
+							<div class="Department">職工福利會</div>
+							<!-- 增修編號9 電話上移一列 -->
+							<div class="Section">陳子祥 <span class="Number">27551399#3325</span></div>
+						</button>
+				
+				
+				
+				
+				
+				
+				
+				
+			
+				
+					<div>
+		<div>
+		<div class="modal fade bd-deleteBookingRecord-modal-2153312 meetingRecord-2153312" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="myLargeModalLabel">刪除會議室預約</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="Text_area">
+						<ul>
+							<li>2025/07/04 10:00~12:00</li>
+							<li>討論團險下半年經營策略</li>
+							<li>國泰人壽 業務部 莊士毅</li>
+						</ul>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn Btn_Light_Green Btn_basic" onclick="doDelete(2153312)">確定刪除</button>
+						<button type="button" class="btn Btn_Gray Btn_basic" data-dismiss="modal">取消</button>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+		<div>
+		<div class="modal fade bd-notReported-modal-2153312 meetingRecord-2153312" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						
+							<h5 class="modal-title" id="myLargeModalLabel">註記未報到</h5>
+						
+						
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="Text_area">
+						<ul>
+							
+								<li>您是否確認註記未報到？</li>
+							
+							
+						</ul>
+					</div>
+					<div class="modal-footer">
+						
+							<button type="button" class="btn Btn_Light_Green Btn_basic" onclick="inserNoShow(2153312)">確定註記</button>
+						
+						
+						<button type="button" class="btn Btn_Gray Btn_basic" data-dismiss="modal">取消</button>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+		<div class="modal fade  bd-bookingRecordList-modal-2153312 meetingRecord-2153312" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						
+						<h1 class="modal-title">討論團險下半年經營策略</h1>
+						<button type="button" class="close closeDetailBtn" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="modal-body Text_area">
+						
+						<ul>
+							<li class="Green_color">預約日期：</li>
+							<li>2025/07/04 10:00~12:00</li>
+						</ul>
+						<ul>
+							<li class="Green_color">召集人：</li>
+							<li>國泰人壽 業務部</li>
+							<li>莊士毅</li>
+							<li>27551399#2177</li>
+						</ul>
+						<ul>
+							<li class="Green_color">會議內容</li>
+							<li>為什麼會有這個會議 本次議程重點目標 其他補充說明</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+			$('.deleteMeetingRoom').click(function() {
+				$('.closeDetailBtn').click();
+			})
+			$('.notRepoortBtn').change(function() {
+				var modal1 = $(this).attr('data-target')
+				$(modal1).modal('show')
+				$('.closeDetailBtn').click();
+			})
+		</script>
+	</div>
+						<button id="2153312" class="Calendar_block Gray_bg_block meetingRecordBtn Four_style" data-endtime="12:00" data-starttime="10:00" data-rowid="6" data-columnid="6">
+							<div class="Company textDis">討論團險下半年經營策略</div>
+							<div class="Company">國泰人壽</div>
+							<div class="Department">業務部</div>
+							<!-- 增修編號9 電話上移一列 -->
+							<div class="Section">莊士毅 <span class="Number">27551399#2177</span></div>
+						</button>
+				
+				
+				
+				
+				
+				
+				
+				
+			
+				
+				
+				
+					
+					
+						<button class="Calendar_block One_style Gray_bg_block" data-endtime="12:30" data-starttime="12:00" data-meetingroompk="58"></button>
+					
+				
+				
+				
+				
+				
+				
+			
+				
+				
+				
+					
+					
+						<button class="Calendar_block One_style Gray_bg_block" data-endtime="13:00" data-starttime="12:30" data-meetingroompk="58"></button>
+					
+				
+				
+				
+				
+				
+				
+			
+		</div>
+		<div class="Meeting_detail">
+			<div class="collapse multi-collapse ToggleCard " id="meetingRoomDiv-58" data-hasloadedimage="false" data-meetingroompk="58">
+				<div class="card card-body">
+					<div class="Text_area row">
+						<div class="col-lg-6 col-md-4">
+							<ul>
+								<li class="Red_color">會議室相關資訊</li>
+								<ul class="Title8">
+									<li class="Green_color">地址：</li>
+									<li>臺北市大安區仁愛路四段296號</li>
+								</ul>
+								<ul class="Title8">
+									<li class="Green_color">樓層：</li>
+									<li>15F</li>
+								</ul>
+								<ul class="Title8">
+									<li class="Green_color">容納人數：</li>
+									<li>12人</li>
+								</ul>
+								<ul class="Title8">
+									<li class="Green_color">內建設備：</li>
+									<li>電視、HDMI線</li>
+								</ul>
+								<!-- 增修編號9 移除會議室管理員 -->
+								<!-- <ul class="Title8">
+									<li class="Green_color">會議室管理員：</li>
+									<li style="display: inline-grid;">
+										<th:block th:each="dataUser: ${meetingRoom.meetingRoomOwners}">
+											<p th:text="${dataUser.userId.bu1+'-'+dataUser.userId.bu2+'-'+dataUser.userId.bu3+'-'+dataUser.userId.empName}">張O華</p>
+										</th:block>
+									</li>
+								</ul> -->
+								<ul class="Title8">
+									<li class="Green_color">描述：</li>
+									<li style="display: inline-flex;">開會時請勿攜帶食物及飲料進入會議室</li>
+								</ul>
+								<ul class="Title8">
+									<li class="Green_color">借用規則：</li>
+									<li style="display: inline-flex;">各會議室座椅，請勿移動至其他會議室使用，如會議室座椅數量不足可至貨梯前鐵櫃借用摺疊椅。</li>
+								</ul>
+							</ul>
+						</div>
+						<div class="col-lg-6 col-md-12 Meeting_room_pic">
+<!--						<th:block th:unless="${#lists.isEmpty(meetingRoom.meetingRoomImages)}">	-->
+<!--							<th:block th:each="image : ${meetingRoom.meetingRoomImages}">-->
+<!--								<span data-toggle="modal" data-target="#extendImgModal">-->
+<!--								<img class="extendImg" th:src="${'data:image/png;base64,'+image.base64Str}" -->
+<!--									th:onerror="'this.src=\'' + @{/frontend/img/default-img.png} + '\';'" />-->
+<!--								</span>	-->
+<!--							</th:block>-->
+<!--						</th:block>-->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	
+	<form action="/frontend/mrm101w/goUpdate" id="goUpdate" method="post"><input type="hidden" name="_csrf" value="6059c613-4c53-48aa-ba7b-7fa95c22d063">
+		<input type="hidden" name="meetingRoomRecordPk" id="meetingRoomRecordUpdatePk">
+	</form>
+
+	<form action="/frontend/mrm101w/goDelete" id="goDelete" method="post"><input type="hidden" name="_csrf" value="6059c613-4c53-48aa-ba7b-7fa95c22d063">
+		<input type="hidden" name="meetingRoomRecordPk" id="meetingRoomRecordDeletePk">
+	</form>
+
+	<form action="/frontend/mrm101w/noShow" id="noShowForm" method="post"><input type="hidden" name="_csrf" value="6059c613-4c53-48aa-ba7b-7fa95c22d063">
+		<input type="hidden" name="meetingRoomRecordPk" id="noShowMeetingRoomRecordPK">
+		<input type="hidden" id="cancelNoshow" name="isCancelNoshow">
+	</form>
+	
+	<form action="/frontend/mrm103w/goUpdateNotice" id="sendNotice" method="post"><input type="hidden" name="_csrf" value="6059c613-4c53-48aa-ba7b-7fa95c22d063">
+		<input type="hidden" name="meetingRoomRecordPk" id="sendNoticeMeetingRoomRecordPK">
+	</form>
+	
+
+
+	<!-- Modal begin-->
+<div class="modal fade" id="extendImgModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">x</span>
+				</button>
+			</div>
+			<div class="modal-body Text_center">
+				<div class="Movie_big_size"><img id="bigSizeImg"></div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Modal end-->
+
+	<script type="text/javascript">
+	$(function() {
+		var currentTime = "23:36:38";
+		var officeStart = "07:00";
+		var officeEndTime = "23:30";
+		timeLineShowHide(currentTime, officeStart, officeEndTime);
+	});
+	
+	$('.Insert_block,.Pink_whitebg_block').click(function() {
+		var meetingroompk = $(this).attr('data-meetingroompk');   //把當前選擇會議室帶到101w3-1使用
+		$('#startTime').val($(this).attr('data-starttime'));
+		$('#endTime').val($(this).attr('data-endtime'));
+		$('#selectedDate').val($('.searchDate').val())
+		$('#noShowMeetingRoomRecordPk').val($(this).attr('id'));
+		var classStr = $(this).attr('class');
+		if(classStr.includes('Insert_block')){
+			$('#tempMeetingRoomPK').val(meetingroompk);
+			openLoading();
+			$('#createMeetingRoom').submit();
+		}
+	})
+	
+	function goSendNotice(id) {
+		$('#sendNoticeMeetingRoomRecordPK').val(id);
+		$('#meetingRecordPopDetail-'+id).hide();
+		 openLoading();
+		$('#sendNotice').submit();
+	}
+
+	$.each($('[id^="meetingRoomDiv"]'), function() {
+		let thisDiv = $(this);
+		$(this).on('show.bs.collapse', function () {
+			let meetingRoomPK = thisDiv.data("meetingroompk");
+			let hasLoadedImage = thisDiv.attr("data-hasloadedimage") === 'true';
+			if(hasLoadedImage == false) {
+				let getMeetingRoomImagesURL = '/frontend/mrm101w/meetingRoomImage?meetingRoomPK=' + meetingRoomPK;
+				$.ajax({
+					url: getMeetingRoomImagesURL,
+					type: "GET",
+					dataType: "json",
+					async: false,
+					cache: false
+				})
+				.done(function(imageData){
+					let picDiv = thisDiv.find(".Meeting_room_pic");
+					if(imageData.isMeetingRoomImagesEmpty == false) {
+						let defaultImgPath = '/frontend/img/default-img.png';
+						let htmlString = "";
+						$.each(imageData.meetingRoomImages, function(index, base64Str) {
+							htmlString += '<span data-toggle="modal" data-target="#extendImgModal">' +
+											'<img class="extendImg" src="data:image/png;base64,' + base64Str +'" ' +
+											'onerror="this.src=\'' + defaultImgPath + '\';" />' + '</span>';
+
+						});
+						picDiv.append(htmlString);
+					}
+					thisDiv.attr("data-hasloadedimage", "true");
+				});
+			}
+		});
+	});
+	
+	$('.meetingRecordBtn').click(function(e){
+		var id = $(this).attr('id')
+		if($("#meetingRoomRecordDetailAttendee" + id).length == 0) {
+			let getMeetingNoticeRecordAttendeeURL = '/frontend/mrm101w/meetingNoticeRecordAttendee?meetingRoomRecordPK=' + id;
+			$.ajax({
+				url: getMeetingNoticeRecordAttendeeURL,
+				type: "GET",
+				dataType: "json",
+				async: false,
+				cache: false
+			})
+			.done(function(data){
+				if(data.isUserEqualsReserver == true){
+					let htmlString = "";
+					htmlString += "<ul id=meetingRoomRecordDetailAttendee" + id + "><li>參與人員：</li><li>";
+					if(data.attendees && data.attendees.length > 0) {
+						$.each(data.attendees, function(index, attendee) {
+							if(attendee.userId !=null) {
+								htmlString += "<div>" + attendee.userId.empName + "</div>";
+							} else {
+								htmlString += "<div>" + attendee.email + "</div>";
+							}
+						});
+					}
+					htmlString += "</li></ul>";
+					$("#meetingRoomRecordDetailConvener"+id).after(htmlString);
+				}
+			});
+		}
+		$('.Pop_Meeting_detial').removeAttr('style');
+		$('.meetingRecordPopDetail-'+id).removeAttr('style');
+		var viewWidth = $(window).width();
+		/* moblie: 小視窗置中 */
+		if (viewWidth < 1024) {
+			$('.meetingRecordPopDetail-'+id).modal('show');
+			return;
+		}
+		
+		/* PC: 小視窗切齊時間軸 */
+		var top = $(".Booking_calendar").offset().top;
+		var left = this.offsetLeft;
+		
+		if (left > viewWidth/2) {
+			$('.meetingRecordPopDetail-'+id+" .Pop_Meeting_detial").css("left", (left-320)+"px");
+		} else {
+			var btnWidth = $(this).outerWidth();
+			$('.meetingRecordPopDetail-'+id+" .Pop_Meeting_detial").css("left", (left+btnWidth+4)+"px");
+		}
+		$('.meetingRecordPopDetail-'+id+" .Pop_Meeting_detial").css("top", top+"px");
+		$('.meetingRecordPopDetail-'+id).modal('show');
+		$('.modal-backdrop').css('display', 'none');
+		$('body').removeClass("modal-open");
+		$('body').removeAttr("style");
+	})
+	
+	// 開闔card時紅線消失(需要確認timeout的秒數目前最少要400)
+	$('.ToggleTitle').click(function(){   
+			window.setTimeout(function() {
+				timeLineCollapse();
+			  }, 400);  
+	})
+	
+	function timeLineCollapse(){
+		$(".ToggleCard").each(function(cardIndex) {
+			var collapseStat = $(this).css('display');
+			if(collapseStat == 'block'){
+				$('.Booking_time_line').hide();
+				return false;
+			}else{
+				var currentTime = "23:36:38";
+				timeLineShowByDateTime(parseInt(currentTime.split(':')[0]));
+			}
+		});
+	}
+	
+	var bigSizeImg = document.getElementById("bigSizeImg");
+	$(".Meeting_room_pic").on("click", ".extendImg", function() {
+		bigSizeImg.src = $(this).attr('src');
+		bigSizeImg.style.width="460px";
+		bigSizeImg.style.height="305px";
+	});
+</script>
+</div>
+
+	
+		
+		
+		<div class="modal fade meetingRecordPopDetail-2121308" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+			<div>
+		<div class="modal fade bd-deleteBookingRecord-modal-2121308 meetingRecord-2121308" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="myLargeModalLabel">刪除會議室預約</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="Text_area">
+						<ul>
+							<li>2025/07/04 07:00~23:00</li>
+							<li>金檢一般業務檢查查核</li>
+							<li>國泰人壽 稽核室 林奕希</li>
+						</ul>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn Btn_Light_Green Btn_basic" onclick="doDelete(2121308)">確定刪除</button>
+						<button type="button" class="btn Btn_Gray Btn_basic" data-dismiss="modal">取消</button>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+			<div>
+		<div class="modal fade bd-notReported-modal-2121308 meetingRecord-2121308" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						
+							<h5 class="modal-title" id="myLargeModalLabel">註記未報到</h5>
+						
+						
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="Text_area">
+						<ul>
+							
+								<li>您是否確認註記未報到？</li>
+							
+							
+						</ul>
+					</div>
+					<div class="modal-footer">
+						
+							<button type="button" class="btn Btn_Light_Green Btn_basic" onclick="inserNoShow(2121308)">確定註記</button>
+						
+						
+						<button type="button" class="btn Btn_Gray Btn_basic" data-dismiss="modal">取消</button>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+			<div class="Pop_Meeting_detial">
+				<div class="Button_area">
+					<div class="Left">
+						<!-- 啟用的會議室其記錄才可以做刪除和發通知 -->
+						
+							
+						
+					</div>
+					<div class="Right">
+						<i class="fas fa-times closePopDetail" data-closepopdetail="2121308"></i>
+					</div>
+				</div>
+				<div class="Content">
+					<div class="Title">金檢一般業務檢查查核</div>
+					<div class="Detail_area">
+						
+						<!-- 已存在黑名單中 -->
+						
+						<!-- 沒有存在黑名單中 -->
+						
+							<!-- 會議室是啟用的 -->
+							
+								
+									<ul class="situationUL">
+										<li>是否未報到:</li>
+										<li>否</li>
+									</ul>
+								
+								
+							
+						
+<!-- 						<ul> -->
+<!-- 							<li>狀態：</li> -->
+<!-- 							<li th:text="${meetingRoomRecord.status.name}"></li> -->
+<!-- 						</ul> -->
+						<ul>
+							<li>預約日期：</li>
+							<li>2025/07/04 07:00~23:00</li>
+						</ul>
+						<ul id="meetingRoomRecordDetailConvener2121308">
+							<li>召集人：</li>
+							<li>國泰人壽 稽核室</li>
+							<li>林奕希</li>
+							<li>27551399#2715</li>
+						</ul>
+<!--						<ul th:if="${meetingRoomRecord.isUserEqualsReserver}">-->
+<!--							<li>參與人員：</li>-->
+<!--							<li>-->
+<!--								<th:block th:each="attendee:${meetingRoomRecord.attendees}">-->
+<!--									<th:block th:if="${attendee.userId !=null}">-->
+<!--										<div th:text="${attendee.userId.empName}"></div>-->
+<!--									</th:block>-->
+<!--									<th:block th:if="${attendee.userId ==null}">-->
+<!--										<div th:text="${attendee.email}"></div>-->
+<!--									</th:block>-->
+<!--								</th:block>-->
+<!--							</li>-->
+<!--						</ul>-->
+<!-- 						<ul> -->
+<!-- 							<li>參與部門：</li> -->
+<!-- 							<li> -->
+<!-- 								<th:block th:each="unit:${meetingRoomRecord.attendedUnits}"> -->
+<!-- 								<span th:text="${unit.departmentCode.buName}"></span> -->
+<!-- 							</th:block> -->
+<!-- 							</li> -->
+<!-- 						</ul> -->
+						
+					</div>
+				</div>
+			</div>
+			</div>
+			<script type="text/javascript">
+				$('.closePopDetail').click(function() {
+					var childTarget =$(this).attr('data-closePopDetail');
+					$('.meetingRecordPopDetail-'+childTarget).modal('hide');
+				})
+				
+				$('.deleteMeetingRoom').click(function(){
+					var childTarget = $(this).data("target");
+					var parentTarget = childTarget.split('bd-deleteBookingRecord-modal-')[1];
+					$('.meetingRecordPopDetail-'+parentTarget).modal('hide');
+				})
+				
+				$('.Situation').click(function(){
+					var childTarget=$(this).attr('data-Situation');
+					 $('.meetingRecordPopDetail-'+childTarget).modal('hide');
+				})
+				
+				$('.Pink_whitebg_block_insert').click(function(){
+					$('.Pop_Meeting_detial').hide();
+					var meetingroompk = $(this).attr('data-meetingroompk');   //把當前選擇會議室帶到後面預選
+					$('#tempMeetingRoomPK').val(meetingroompk);
+					openLoading();
+					$('#createMeetingRoom').submit();
+				})
+			</script>
+			<style>
+			.Pop_Meeting_detial .Content .Situation .btn-group button{
+				width: 100px;
+			}
+			
+			.situationUL{
+				margin-top: 5px;
+			}
+			</style>
+		 </div>		  
+		
+	
+	
+
+	
+		
+		
+	
+	
+		
+		
+	
+	
+		
+		
+	
+	
+		
+		
+	
+	
+		
+		
+		<div class="modal fade meetingRecordPopDetail-2134129" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+			<div>
+		<div class="modal fade bd-deleteBookingRecord-modal-2134129 meetingRecord-2134129" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="myLargeModalLabel">刪除會議室預約</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="Text_area">
+						<ul>
+							<li>2025/07/04 09:00~11:00</li>
+							<li>ISO稽核教育(一)</li>
+							<li>國泰人壽 客戶關係促進部 何駿</li>
+						</ul>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn Btn_Light_Green Btn_basic" onclick="doDelete(2134129)">確定刪除</button>
+						<button type="button" class="btn Btn_Gray Btn_basic" data-dismiss="modal">取消</button>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+			<div>
+		<div class="modal fade bd-notReported-modal-2134129 meetingRecord-2134129" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						
+							<h5 class="modal-title" id="myLargeModalLabel">註記未報到</h5>
+						
+						
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="Text_area">
+						<ul>
+							
+								<li>您是否確認註記未報到？</li>
+							
+							
+						</ul>
+					</div>
+					<div class="modal-footer">
+						
+							<button type="button" class="btn Btn_Light_Green Btn_basic" onclick="inserNoShow(2134129)">確定註記</button>
+						
+						
+						<button type="button" class="btn Btn_Gray Btn_basic" data-dismiss="modal">取消</button>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+			<div class="Pop_Meeting_detial">
+				<div class="Button_area">
+					<div class="Left">
+						<!-- 啟用的會議室其記錄才可以做刪除和發通知 -->
+						
+							
+						
+					</div>
+					<div class="Right">
+						<i class="fas fa-times closePopDetail" data-closepopdetail="2134129"></i>
+					</div>
+				</div>
+				<div class="Content">
+					<div class="Title">ISO稽核教育(一)</div>
+					<div class="Detail_area">
+						
+						<!-- 已存在黑名單中 -->
+						
+						<!-- 沒有存在黑名單中 -->
+						
+							<!-- 會議室是啟用的 -->
+							
+								
+									<ul class="situationUL">
+										<li>是否未報到:</li>
+										<li>否</li>
+									</ul>
+								
+								
+							
+						
+<!-- 						<ul> -->
+<!-- 							<li>狀態：</li> -->
+<!-- 							<li th:text="${meetingRoomRecord.status.name}"></li> -->
+<!-- 						</ul> -->
+						<ul>
+							<li>預約日期：</li>
+							<li>2025/07/04 09:00~11:00</li>
+						</ul>
+						<ul id="meetingRoomRecordDetailConvener2134129">
+							<li>召集人：</li>
+							<li>國泰人壽 客戶關係促進部</li>
+							<li>何駿</li>
+							<li>27551399#3934</li>
+						</ul>
+<!--						<ul th:if="${meetingRoomRecord.isUserEqualsReserver}">-->
+<!--							<li>參與人員：</li>-->
+<!--							<li>-->
+<!--								<th:block th:each="attendee:${meetingRoomRecord.attendees}">-->
+<!--									<th:block th:if="${attendee.userId !=null}">-->
+<!--										<div th:text="${attendee.userId.empName}"></div>-->
+<!--									</th:block>-->
+<!--									<th:block th:if="${attendee.userId ==null}">-->
+<!--										<div th:text="${attendee.email}"></div>-->
+<!--									</th:block>-->
+<!--								</th:block>-->
+<!--							</li>-->
+<!--						</ul>-->
+<!-- 						<ul> -->
+<!-- 							<li>參與部門：</li> -->
+<!-- 							<li> -->
+<!-- 								<th:block th:each="unit:${meetingRoomRecord.attendedUnits}"> -->
+<!-- 								<span th:text="${unit.departmentCode.buName}"></span> -->
+<!-- 							</th:block> -->
+<!-- 							</li> -->
+<!-- 						</ul> -->
+						
+					</div>
+				</div>
+			</div>
+			</div>
+			<script type="text/javascript">
+				$('.closePopDetail').click(function() {
+					var childTarget =$(this).attr('data-closePopDetail');
+					$('.meetingRecordPopDetail-'+childTarget).modal('hide');
+				})
+				
+				$('.deleteMeetingRoom').click(function(){
+					var childTarget = $(this).data("target");
+					var parentTarget = childTarget.split('bd-deleteBookingRecord-modal-')[1];
+					$('.meetingRecordPopDetail-'+parentTarget).modal('hide');
+				})
+				
+				$('.Situation').click(function(){
+					var childTarget=$(this).attr('data-Situation');
+					 $('.meetingRecordPopDetail-'+childTarget).modal('hide');
+				})
+				
+				$('.Pink_whitebg_block_insert').click(function(){
+					$('.Pop_Meeting_detial').hide();
+					var meetingroompk = $(this).attr('data-meetingroompk');   //把當前選擇會議室帶到後面預選
+					$('#tempMeetingRoomPK').val(meetingroompk);
+					openLoading();
+					$('#createMeetingRoom').submit();
+				})
+			</script>
+			<style>
+			.Pop_Meeting_detial .Content .Situation .btn-group button{
+				width: 100px;
+			}
+			
+			.situationUL{
+				margin-top: 5px;
+			}
+			</style>
+		 		  
+		
+	
+	
+		
+		
+		<div class="modal fade meetingRecordPopDetail-2134133" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+			<div>
+		<div class="modal fade bd-deleteBookingRecord-modal-2134133 meetingRecord-2134133" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="myLargeModalLabel">刪除會議室預約</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="Text_area">
+						<ul>
+							<li>2025/07/04 11:00~12:00</li>
+							<li>ISO稽核教育</li>
+							<li>國泰人壽 客戶關係促進部 郭祉筠</li>
+						</ul>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn Btn_Light_Green Btn_basic" onclick="doDelete(2134133)">確定刪除</button>
+						<button type="button" class="btn Btn_Gray Btn_basic" data-dismiss="modal">取消</button>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+			<div>
+		<div class="modal fade bd-notReported-modal-2134133 meetingRecord-2134133" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						
+							<h5 class="modal-title" id="myLargeModalLabel">註記未報到</h5>
+						
+						
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="Text_area">
+						<ul>
+							
+								<li>您是否確認註記未報到？</li>
+							
+							
+						</ul>
+					</div>
+					<div class="modal-footer">
+						
+							<button type="button" class="btn Btn_Light_Green Btn_basic" onclick="inserNoShow(2134133)">確定註記</button>
+						
+						
+						<button type="button" class="btn Btn_Gray Btn_basic" data-dismiss="modal">取消</button>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+			<div class="Pop_Meeting_detial">
+				<div class="Button_area">
+					<div class="Left">
+						<!-- 啟用的會議室其記錄才可以做刪除和發通知 -->
+						
+							
+						
+					</div>
+					<div class="Right">
+						<i class="fas fa-times closePopDetail" data-closepopdetail="2134133"></i>
+					</div>
+				</div>
+				<div class="Content">
+					<div class="Title">ISO稽核教育</div>
+					<div class="Detail_area">
+						
+						<!-- 已存在黑名單中 -->
+						
+						<!-- 沒有存在黑名單中 -->
+						
+							<!-- 會議室是啟用的 -->
+							
+								
+									<ul class="situationUL">
+										<li>是否未報到:</li>
+										<li>否</li>
+									</ul>
+								
+								
+							
+						
+<!-- 						<ul> -->
+<!-- 							<li>狀態：</li> -->
+<!-- 							<li th:text="${meetingRoomRecord.status.name}"></li> -->
+<!-- 						</ul> -->
+						<ul>
+							<li>預約日期：</li>
+							<li>2025/07/04 11:00~12:00</li>
+						</ul>
+						<ul id="meetingRoomRecordDetailConvener2134133">
+							<li>召集人：</li>
+							<li>國泰人壽 客戶關係促進部</li>
+							<li>郭祉筠</li>
+							<li>27551399#3936</li>
+						</ul>
+<!--						<ul th:if="${meetingRoomRecord.isUserEqualsReserver}">-->
+<!--							<li>參與人員：</li>-->
+<!--							<li>-->
+<!--								<th:block th:each="attendee:${meetingRoomRecord.attendees}">-->
+<!--									<th:block th:if="${attendee.userId !=null}">-->
+<!--										<div th:text="${attendee.userId.empName}"></div>-->
+<!--									</th:block>-->
+<!--									<th:block th:if="${attendee.userId ==null}">-->
+<!--										<div th:text="${attendee.email}"></div>-->
+<!--									</th:block>-->
+<!--								</th:block>-->
+<!--							</li>-->
+<!--						</ul>-->
+<!-- 						<ul> -->
+<!-- 							<li>參與部門：</li> -->
+<!-- 							<li> -->
+<!-- 								<th:block th:each="unit:${meetingRoomRecord.attendedUnits}"> -->
+<!-- 								<span th:text="${unit.departmentCode.buName}"></span> -->
+<!-- 							</th:block> -->
+<!-- 							</li> -->
+<!-- 						</ul> -->
+						
+					</div>
+				</div>
+			</div>
+			</div>
+			<script type="text/javascript">
+				$('.closePopDetail').click(function() {
+					var childTarget =$(this).attr('data-closePopDetail');
+					$('.meetingRecordPopDetail-'+childTarget).modal('hide');
+				})
+				
+				$('.deleteMeetingRoom').click(function(){
+					var childTarget = $(this).data("target");
+					var parentTarget = childTarget.split('bd-deleteBookingRecord-modal-')[1];
+					$('.meetingRecordPopDetail-'+parentTarget).modal('hide');
+				})
+				
+				$('.Situation').click(function(){
+					var childTarget=$(this).attr('data-Situation');
+					 $('.meetingRecordPopDetail-'+childTarget).modal('hide');
+				})
+				
+				$('.Pink_whitebg_block_insert').click(function(){
+					$('.Pop_Meeting_detial').hide();
+					var meetingroompk = $(this).attr('data-meetingroompk');   //把當前選擇會議室帶到後面預選
+					$('#tempMeetingRoomPK').val(meetingroompk);
+					openLoading();
+					$('#createMeetingRoom').submit();
+				})
+			</script>
+			<style>
+			.Pop_Meeting_detial .Content .Situation .btn-group button{
+				width: 100px;
+			}
+			
+			.situationUL{
+				margin-top: 5px;
+			}
+			</style>
+		 		  
+		
+	
+	
+		
+		
+	
+	
+		
+		
+	
+	
+
+	
+		
+		
+		<div class="modal fade meetingRecordPopDetail-2107057" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+			<div>
+		<div class="modal fade bd-deleteBookingRecord-modal-2107057 meetingRecord-2107057" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="myLargeModalLabel">刪除會議室預約</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="Text_area">
+						<ul>
+							<li>2025/07/04 07:00~23:00</li>
+							<li>會計師內部控制制度查核</li>
+							<li>國泰人壽 稽核室 吳泰霖</li>
+						</ul>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn Btn_Light_Green Btn_basic" onclick="doDelete(2107057)">確定刪除</button>
+						<button type="button" class="btn Btn_Gray Btn_basic" data-dismiss="modal">取消</button>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+			<div>
+		<div class="modal fade bd-notReported-modal-2107057 meetingRecord-2107057" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						
+							<h5 class="modal-title" id="myLargeModalLabel">註記未報到</h5>
+						
+						
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="Text_area">
+						<ul>
+							
+								<li>您是否確認註記未報到？</li>
+							
+							
+						</ul>
+					</div>
+					<div class="modal-footer">
+						
+							<button type="button" class="btn Btn_Light_Green Btn_basic" onclick="inserNoShow(2107057)">確定註記</button>
+						
+						
+						<button type="button" class="btn Btn_Gray Btn_basic" data-dismiss="modal">取消</button>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+			<div class="Pop_Meeting_detial">
+				<div class="Button_area">
+					<div class="Left">
+						<!-- 啟用的會議室其記錄才可以做刪除和發通知 -->
+						
+							
+						
+					</div>
+					<div class="Right">
+						<i class="fas fa-times closePopDetail" data-closepopdetail="2107057"></i>
+					</div>
+				</div>
+				<div class="Content">
+					<div class="Title">會計師內部控制制度查核</div>
+					<div class="Detail_area">
+						
+						<!-- 已存在黑名單中 -->
+						
+						<!-- 沒有存在黑名單中 -->
+						
+							<!-- 會議室是啟用的 -->
+							
+								
+									<ul class="situationUL">
+										<li>是否未報到:</li>
+										<li>否</li>
+									</ul>
+								
+								
+							
+						
+<!-- 						<ul> -->
+<!-- 							<li>狀態：</li> -->
+<!-- 							<li th:text="${meetingRoomRecord.status.name}"></li> -->
+<!-- 						</ul> -->
+						<ul>
+							<li>預約日期：</li>
+							<li>2025/07/04 07:00~23:00</li>
+						</ul>
+						<ul id="meetingRoomRecordDetailConvener2107057">
+							<li>召集人：</li>
+							<li>國泰人壽 稽核室</li>
+							<li>吳泰霖</li>
+							<li>27551399#2701</li>
+						</ul>
+<!--						<ul th:if="${meetingRoomRecord.isUserEqualsReserver}">-->
+<!--							<li>參與人員：</li>-->
+<!--							<li>-->
+<!--								<th:block th:each="attendee:${meetingRoomRecord.attendees}">-->
+<!--									<th:block th:if="${attendee.userId !=null}">-->
+<!--										<div th:text="${attendee.userId.empName}"></div>-->
+<!--									</th:block>-->
+<!--									<th:block th:if="${attendee.userId ==null}">-->
+<!--										<div th:text="${attendee.email}"></div>-->
+<!--									</th:block>-->
+<!--								</th:block>-->
+<!--							</li>-->
+<!--						</ul>-->
+<!-- 						<ul> -->
+<!-- 							<li>參與部門：</li> -->
+<!-- 							<li> -->
+<!-- 								<th:block th:each="unit:${meetingRoomRecord.attendedUnits}"> -->
+<!-- 								<span th:text="${unit.departmentCode.buName}"></span> -->
+<!-- 							</th:block> -->
+<!-- 							</li> -->
+<!-- 						</ul> -->
+						
+					</div>
+				</div>
+			</div>
+			</div>
+			<script type="text/javascript">
+				$('.closePopDetail').click(function() {
+					var childTarget =$(this).attr('data-closePopDetail');
+					$('.meetingRecordPopDetail-'+childTarget).modal('hide');
+				})
+				
+				$('.deleteMeetingRoom').click(function(){
+					var childTarget = $(this).data("target");
+					var parentTarget = childTarget.split('bd-deleteBookingRecord-modal-')[1];
+					$('.meetingRecordPopDetail-'+parentTarget).modal('hide');
+				})
+				
+				$('.Situation').click(function(){
+					var childTarget=$(this).attr('data-Situation');
+					 $('.meetingRecordPopDetail-'+childTarget).modal('hide');
+				})
+				
+				$('.Pink_whitebg_block_insert').click(function(){
+					$('.Pop_Meeting_detial').hide();
+					var meetingroompk = $(this).attr('data-meetingroompk');   //把當前選擇會議室帶到後面預選
+					$('#tempMeetingRoomPK').val(meetingroompk);
+					openLoading();
+					$('#createMeetingRoom').submit();
+				})
+			</script>
+			<style>
+			.Pop_Meeting_detial .Content .Situation .btn-group button{
+				width: 100px;
+			}
+			
+			.situationUL{
+				margin-top: 5px;
+			}
+			</style>
+		 		  
+		
+	
+	
+
+	
+		
+		
+		<div class="modal fade meetingRecordPopDetail-2131000" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+			<div>
+		<div class="modal fade bd-deleteBookingRecord-modal-2131000 meetingRecord-2131000" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="myLargeModalLabel">刪除會議室預約</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="Text_area">
+						<ul>
+							<li>2025/07/04 07:00~23:00</li>
+							<li>金檢一般業務檢查</li>
+							<li>國泰人壽 稽核室 李俊德</li>
+						</ul>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn Btn_Light_Green Btn_basic" onclick="doDelete(2131000)">確定刪除</button>
+						<button type="button" class="btn Btn_Gray Btn_basic" data-dismiss="modal">取消</button>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+			<div>
+		<div class="modal fade bd-notReported-modal-2131000 meetingRecord-2131000" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						
+							<h5 class="modal-title" id="myLargeModalLabel">註記未報到</h5>
+						
+						
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="Text_area">
+						<ul>
+							
+								<li>您是否確認註記未報到？</li>
+							
+							
+						</ul>
+					</div>
+					<div class="modal-footer">
+						
+							<button type="button" class="btn Btn_Light_Green Btn_basic" onclick="inserNoShow(2131000)">確定註記</button>
+						
+						
+						<button type="button" class="btn Btn_Gray Btn_basic" data-dismiss="modal">取消</button>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+			<div class="Pop_Meeting_detial">
+				<div class="Button_area">
+					<div class="Left">
+						<!-- 啟用的會議室其記錄才可以做刪除和發通知 -->
+						
+							
+						
+					</div>
+					<div class="Right">
+						<i class="fas fa-times closePopDetail" data-closepopdetail="2131000"></i>
+					</div>
+				</div>
+				<div class="Content">
+					<div class="Title">金檢一般業務檢查</div>
+					<div class="Detail_area">
+						
+						<!-- 已存在黑名單中 -->
+						
+						<!-- 沒有存在黑名單中 -->
+						
+							<!-- 會議室是啟用的 -->
+							
+								
+									<ul class="situationUL">
+										<li>是否未報到:</li>
+										<li>否</li>
+									</ul>
+								
+								
+							
+						
+<!-- 						<ul> -->
+<!-- 							<li>狀態：</li> -->
+<!-- 							<li th:text="${meetingRoomRecord.status.name}"></li> -->
+<!-- 						</ul> -->
+						<ul>
+							<li>預約日期：</li>
+							<li>2025/07/04 07:00~23:00</li>
+						</ul>
+						<ul id="meetingRoomRecordDetailConvener2131000">
+							<li>召集人：</li>
+							<li>國泰人壽 稽核室</li>
+							<li>李俊德</li>
+							<li>27551399#2711</li>
+						</ul>
+<!--						<ul th:if="${meetingRoomRecord.isUserEqualsReserver}">-->
+<!--							<li>參與人員：</li>-->
+<!--							<li>-->
+<!--								<th:block th:each="attendee:${meetingRoomRecord.attendees}">-->
+<!--									<th:block th:if="${attendee.userId !=null}">-->
+<!--										<div th:text="${attendee.userId.empName}"></div>-->
+<!--									</th:block>-->
+<!--									<th:block th:if="${attendee.userId ==null}">-->
+<!--										<div th:text="${attendee.email}"></div>-->
+<!--									</th:block>-->
+<!--								</th:block>-->
+<!--							</li>-->
+<!--						</ul>-->
+<!-- 						<ul> -->
+<!-- 							<li>參與部門：</li> -->
+<!-- 							<li> -->
+<!-- 								<th:block th:each="unit:${meetingRoomRecord.attendedUnits}"> -->
+<!-- 								<span th:text="${unit.departmentCode.buName}"></span> -->
+<!-- 							</th:block> -->
+<!-- 							</li> -->
+<!-- 						</ul> -->
+						
+					</div>
+				</div>
+			</div>
+			</div>
+			<script type="text/javascript">
+				$('.closePopDetail').click(function() {
+					var childTarget =$(this).attr('data-closePopDetail');
+					$('.meetingRecordPopDetail-'+childTarget).modal('hide');
+				})
+				
+				$('.deleteMeetingRoom').click(function(){
+					var childTarget = $(this).data("target");
+					var parentTarget = childTarget.split('bd-deleteBookingRecord-modal-')[1];
+					$('.meetingRecordPopDetail-'+parentTarget).modal('hide');
+				})
+				
+				$('.Situation').click(function(){
+					var childTarget=$(this).attr('data-Situation');
+					 $('.meetingRecordPopDetail-'+childTarget).modal('hide');
+				})
+				
+				$('.Pink_whitebg_block_insert').click(function(){
+					$('.Pop_Meeting_detial').hide();
+					var meetingroompk = $(this).attr('data-meetingroompk');   //把當前選擇會議室帶到後面預選
+					$('#tempMeetingRoomPK').val(meetingroompk);
+					openLoading();
+					$('#createMeetingRoom').submit();
+				})
+			</script>
+			<style>
+			.Pop_Meeting_detial .Content .Situation .btn-group button{
+				width: 100px;
+			}
+			
+			.situationUL{
+				margin-top: 5px;
+			}
+			</style>
+		 		  
+		
+	
+	
+
+	
+		
+		
+	
+	
+		
+		
+	
+	
+		
+		
+	
+	
+		
+		
+	
+	
+		
+		
+		<div class="modal fade meetingRecordPopDetail-2013028" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+			<div>
+		<div class="modal fade bd-deleteBookingRecord-modal-2013028 meetingRecord-2013028" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="myLargeModalLabel">刪除會議室預約</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="Text_area">
+						<ul>
+							<li>2025/07/04 09:00~10:00</li>
+							<li>業務部部會</li>
+							<li>國泰人壽 業務部 張品涵</li>
+						</ul>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn Btn_Light_Green Btn_basic" onclick="doDelete(2013028)">確定刪除</button>
+						<button type="button" class="btn Btn_Gray Btn_basic" data-dismiss="modal">取消</button>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+			<div>
+		<div class="modal fade bd-notReported-modal-2013028 meetingRecord-2013028" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						
+							<h5 class="modal-title" id="myLargeModalLabel">註記未報到</h5>
+						
+						
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="Text_area">
+						<ul>
+							
+								<li>您是否確認註記未報到？</li>
+							
+							
+						</ul>
+					</div>
+					<div class="modal-footer">
+						
+							<button type="button" class="btn Btn_Light_Green Btn_basic" onclick="inserNoShow(2013028)">確定註記</button>
+						
+						
+						<button type="button" class="btn Btn_Gray Btn_basic" data-dismiss="modal">取消</button>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+			<div class="Pop_Meeting_detial">
+				<div class="Button_area">
+					<div class="Left">
+						<!-- 啟用的會議室其記錄才可以做刪除和發通知 -->
+						
+							
+						
+					</div>
+					<div class="Right">
+						<i class="fas fa-times closePopDetail" data-closepopdetail="2013028"></i>
+					</div>
+				</div>
+				<div class="Content">
+					<div class="Title">業務部部會</div>
+					<div class="Detail_area">
+						
+						<!-- 已存在黑名單中 -->
+						
+						<!-- 沒有存在黑名單中 -->
+						
+							<!-- 會議室是啟用的 -->
+							
+								
+									<ul class="situationUL">
+										<li>是否未報到:</li>
+										<li>否</li>
+									</ul>
+								
+								
+							
+						
+<!-- 						<ul> -->
+<!-- 							<li>狀態：</li> -->
+<!-- 							<li th:text="${meetingRoomRecord.status.name}"></li> -->
+<!-- 						</ul> -->
+						<ul>
+							<li>預約日期：</li>
+							<li>2025/07/04 09:00~10:00</li>
+						</ul>
+						<ul id="meetingRoomRecordDetailConvener2013028">
+							<li>召集人：</li>
+							<li>國泰人壽 業務部</li>
+							<li>張品涵</li>
+							<li>27551399#2135</li>
+						</ul>
+<!--						<ul th:if="${meetingRoomRecord.isUserEqualsReserver}">-->
+<!--							<li>參與人員：</li>-->
+<!--							<li>-->
+<!--								<th:block th:each="attendee:${meetingRoomRecord.attendees}">-->
+<!--									<th:block th:if="${attendee.userId !=null}">-->
+<!--										<div th:text="${attendee.userId.empName}"></div>-->
+<!--									</th:block>-->
+<!--									<th:block th:if="${attendee.userId ==null}">-->
+<!--										<div th:text="${attendee.email}"></div>-->
+<!--									</th:block>-->
+<!--								</th:block>-->
+<!--							</li>-->
+<!--						</ul>-->
+<!-- 						<ul> -->
+<!-- 							<li>參與部門：</li> -->
+<!-- 							<li> -->
+<!-- 								<th:block th:each="unit:${meetingRoomRecord.attendedUnits}"> -->
+<!-- 								<span th:text="${unit.departmentCode.buName}"></span> -->
+<!-- 							</th:block> -->
+<!-- 							</li> -->
+<!-- 						</ul> -->
+						
+					</div>
+				</div>
+			</div>
+			</div>
+			<script type="text/javascript">
+				$('.closePopDetail').click(function() {
+					var childTarget =$(this).attr('data-closePopDetail');
+					$('.meetingRecordPopDetail-'+childTarget).modal('hide');
+				})
+				
+				$('.deleteMeetingRoom').click(function(){
+					var childTarget = $(this).data("target");
+					var parentTarget = childTarget.split('bd-deleteBookingRecord-modal-')[1];
+					$('.meetingRecordPopDetail-'+parentTarget).modal('hide');
+				})
+				
+				$('.Situation').click(function(){
+					var childTarget=$(this).attr('data-Situation');
+					 $('.meetingRecordPopDetail-'+childTarget).modal('hide');
+				})
+				
+				$('.Pink_whitebg_block_insert').click(function(){
+					$('.Pop_Meeting_detial').hide();
+					var meetingroompk = $(this).attr('data-meetingroompk');   //把當前選擇會議室帶到後面預選
+					$('#tempMeetingRoomPK').val(meetingroompk);
+					openLoading();
+					$('#createMeetingRoom').submit();
+				})
+			</script>
+			<style>
+			.Pop_Meeting_detial .Content .Situation .btn-group button{
+				width: 100px;
+			}
+			
+			.situationUL{
+				margin-top: 5px;
+			}
+			</style>
+		 		  
+		
+	
+	
+		
+		
+		<div class="modal fade meetingRecordPopDetail-1810344" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+			<div>
+		<div class="modal fade bd-deleteBookingRecord-modal-1810344 meetingRecord-1810344" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="myLargeModalLabel">刪除會議室預約</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="Text_area">
+						<ul>
+							<li>2025/07/04 10:00~12:00</li>
+							<li>業務部部會</li>
+							<li>國泰人壽 綜合企劃部 楊靜宜</li>
+						</ul>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn Btn_Light_Green Btn_basic" onclick="doDelete(1810344)">確定刪除</button>
+						<button type="button" class="btn Btn_Gray Btn_basic" data-dismiss="modal">取消</button>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+			<div>
+		<div class="modal fade bd-notReported-modal-1810344 meetingRecord-1810344" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						
+							<h5 class="modal-title" id="myLargeModalLabel">註記未報到</h5>
+						
+						
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="Text_area">
+						<ul>
+							
+								<li>您是否確認註記未報到？</li>
+							
+							
+						</ul>
+					</div>
+					<div class="modal-footer">
+						
+							<button type="button" class="btn Btn_Light_Green Btn_basic" onclick="inserNoShow(1810344)">確定註記</button>
+						
+						
+						<button type="button" class="btn Btn_Gray Btn_basic" data-dismiss="modal">取消</button>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+			<div class="Pop_Meeting_detial">
+				<div class="Button_area">
+					<div class="Left">
+						<!-- 啟用的會議室其記錄才可以做刪除和發通知 -->
+						
+							
+						
+					</div>
+					<div class="Right">
+						<i class="fas fa-times closePopDetail" data-closepopdetail="1810344"></i>
+					</div>
+				</div>
+				<div class="Content">
+					<div class="Title">業務部部會</div>
+					<div class="Detail_area">
+						
+						<!-- 已存在黑名單中 -->
+						
+						<!-- 沒有存在黑名單中 -->
+						
+							<!-- 會議室是啟用的 -->
+							
+								
+									<ul class="situationUL">
+										<li>是否未報到:</li>
+										<li>否</li>
+									</ul>
+								
+								
+							
+						
+<!-- 						<ul> -->
+<!-- 							<li>狀態：</li> -->
+<!-- 							<li th:text="${meetingRoomRecord.status.name}"></li> -->
+<!-- 						</ul> -->
+						<ul>
+							<li>預約日期：</li>
+							<li>2025/07/04 10:00~12:00</li>
+						</ul>
+						<ul id="meetingRoomRecordDetailConvener1810344">
+							<li>召集人：</li>
+							<li>國泰人壽 綜合企劃部</li>
+							<li>楊靜宜</li>
+							<li>27551399#2036</li>
+						</ul>
+<!--						<ul th:if="${meetingRoomRecord.isUserEqualsReserver}">-->
+<!--							<li>參與人員：</li>-->
+<!--							<li>-->
+<!--								<th:block th:each="attendee:${meetingRoomRecord.attendees}">-->
+<!--									<th:block th:if="${attendee.userId !=null}">-->
+<!--										<div th:text="${attendee.userId.empName}"></div>-->
+<!--									</th:block>-->
+<!--									<th:block th:if="${attendee.userId ==null}">-->
+<!--										<div th:text="${attendee.email}"></div>-->
+<!--									</th:block>-->
+<!--								</th:block>-->
+<!--							</li>-->
+<!--						</ul>-->
+<!-- 						<ul> -->
+<!-- 							<li>參與部門：</li> -->
+<!-- 							<li> -->
+<!-- 								<th:block th:each="unit:${meetingRoomRecord.attendedUnits}"> -->
+<!-- 								<span th:text="${unit.departmentCode.buName}"></span> -->
+<!-- 							</th:block> -->
+<!-- 							</li> -->
+<!-- 						</ul> -->
+						
+					</div>
+				</div>
+			</div>
+			</div>
+			<script type="text/javascript">
+				$('.closePopDetail').click(function() {
+					var childTarget =$(this).attr('data-closePopDetail');
+					$('.meetingRecordPopDetail-'+childTarget).modal('hide');
+				})
+				
+				$('.deleteMeetingRoom').click(function(){
+					var childTarget = $(this).data("target");
+					var parentTarget = childTarget.split('bd-deleteBookingRecord-modal-')[1];
+					$('.meetingRecordPopDetail-'+parentTarget).modal('hide');
+				})
+				
+				$('.Situation').click(function(){
+					var childTarget=$(this).attr('data-Situation');
+					 $('.meetingRecordPopDetail-'+childTarget).modal('hide');
+				})
+				
+				$('.Pink_whitebg_block_insert').click(function(){
+					$('.Pop_Meeting_detial').hide();
+					var meetingroompk = $(this).attr('data-meetingroompk');   //把當前選擇會議室帶到後面預選
+					$('#tempMeetingRoomPK').val(meetingroompk);
+					openLoading();
+					$('#createMeetingRoom').submit();
+				})
+			</script>
+			<style>
+			.Pop_Meeting_detial .Content .Situation .btn-group button{
+				width: 100px;
+			}
+			
+			.situationUL{
+				margin-top: 5px;
+			}
+			</style>
+		 		  
+		
+	
+	
+		
+		
+	
+	
+		
+		
+	
+	
+
+	
+		
+		
+	
+	
+		
+		
+	
+	
+		
+		
+	
+	
+		
+		
+	
+	
+		
+		
+		<div class="modal fade meetingRecordPopDetail-2154500" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+			<div>
+		<div class="modal fade bd-deleteBookingRecord-modal-2154500 meetingRecord-2154500" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="myLargeModalLabel">刪除會議室預約</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="Text_area">
+						<ul>
+							<li>2025/07/04 09:00~10:00</li>
+							<li>會議</li>
+							<li>國泰人壽 職工福利會 陳子祥</li>
+						</ul>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn Btn_Light_Green Btn_basic" onclick="doDelete(2154500)">確定刪除</button>
+						<button type="button" class="btn Btn_Gray Btn_basic" data-dismiss="modal">取消</button>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+			<div>
+		<div class="modal fade bd-notReported-modal-2154500 meetingRecord-2154500" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						
+							<h5 class="modal-title" id="myLargeModalLabel">註記未報到</h5>
+						
+						
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="Text_area">
+						<ul>
+							
+								<li>您是否確認註記未報到？</li>
+							
+							
+						</ul>
+					</div>
+					<div class="modal-footer">
+						
+							<button type="button" class="btn Btn_Light_Green Btn_basic" onclick="inserNoShow(2154500)">確定註記</button>
+						
+						
+						<button type="button" class="btn Btn_Gray Btn_basic" data-dismiss="modal">取消</button>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+			<div class="Pop_Meeting_detial">
+				<div class="Button_area">
+					<div class="Left">
+						<!-- 啟用的會議室其記錄才可以做刪除和發通知 -->
+						
+							
+						
+					</div>
+					<div class="Right">
+						<i class="fas fa-times closePopDetail" data-closepopdetail="2154500"></i>
+					</div>
+				</div>
+				<div class="Content">
+					<div class="Title">會議</div>
+					<div class="Detail_area">
+						
+						<!-- 已存在黑名單中 -->
+						
+						<!-- 沒有存在黑名單中 -->
+						
+							<!-- 會議室是啟用的 -->
+							
+								
+									<ul class="situationUL">
+										<li>是否未報到:</li>
+										<li>否</li>
+									</ul>
+								
+								
+							
+						
+<!-- 						<ul> -->
+<!-- 							<li>狀態：</li> -->
+<!-- 							<li th:text="${meetingRoomRecord.status.name}"></li> -->
+<!-- 						</ul> -->
+						<ul>
+							<li>預約日期：</li>
+							<li>2025/07/04 09:00~10:00</li>
+						</ul>
+						<ul id="meetingRoomRecordDetailConvener2154500">
+							<li>召集人：</li>
+							<li>國泰人壽 職工福利會</li>
+							<li>陳子祥</li>
+							<li>27551399#3325</li>
+						</ul>
+<!--						<ul th:if="${meetingRoomRecord.isUserEqualsReserver}">-->
+<!--							<li>參與人員：</li>-->
+<!--							<li>-->
+<!--								<th:block th:each="attendee:${meetingRoomRecord.attendees}">-->
+<!--									<th:block th:if="${attendee.userId !=null}">-->
+<!--										<div th:text="${attendee.userId.empName}"></div>-->
+<!--									</th:block>-->
+<!--									<th:block th:if="${attendee.userId ==null}">-->
+<!--										<div th:text="${attendee.email}"></div>-->
+<!--									</th:block>-->
+<!--								</th:block>-->
+<!--							</li>-->
+<!--						</ul>-->
+<!-- 						<ul> -->
+<!-- 							<li>參與部門：</li> -->
+<!-- 							<li> -->
+<!-- 								<th:block th:each="unit:${meetingRoomRecord.attendedUnits}"> -->
+<!-- 								<span th:text="${unit.departmentCode.buName}"></span> -->
+<!-- 							</th:block> -->
+<!-- 							</li> -->
+<!-- 						</ul> -->
+						
+					</div>
+				</div>
+			</div>
+			</div>
+			<script type="text/javascript">
+				$('.closePopDetail').click(function() {
+					var childTarget =$(this).attr('data-closePopDetail');
+					$('.meetingRecordPopDetail-'+childTarget).modal('hide');
+				})
+				
+				$('.deleteMeetingRoom').click(function(){
+					var childTarget = $(this).data("target");
+					var parentTarget = childTarget.split('bd-deleteBookingRecord-modal-')[1];
+					$('.meetingRecordPopDetail-'+parentTarget).modal('hide');
+				})
+				
+				$('.Situation').click(function(){
+					var childTarget=$(this).attr('data-Situation');
+					 $('.meetingRecordPopDetail-'+childTarget).modal('hide');
+				})
+				
+				$('.Pink_whitebg_block_insert').click(function(){
+					$('.Pop_Meeting_detial').hide();
+					var meetingroompk = $(this).attr('data-meetingroompk');   //把當前選擇會議室帶到後面預選
+					$('#tempMeetingRoomPK').val(meetingroompk);
+					openLoading();
+					$('#createMeetingRoom').submit();
+				})
+			</script>
+			<style>
+			.Pop_Meeting_detial .Content .Situation .btn-group button{
+				width: 100px;
+			}
+			
+			.situationUL{
+				margin-top: 5px;
+			}
+			</style>
+		 		  
+		
+	
+	
+		
+		
+		<div class="modal fade meetingRecordPopDetail-2153312" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+			<div>
+		<div class="modal fade bd-deleteBookingRecord-modal-2153312 meetingRecord-2153312" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="myLargeModalLabel">刪除會議室預約</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="Text_area">
+						<ul>
+							<li>2025/07/04 10:00~12:00</li>
+							<li>討論團險下半年經營策略</li>
+							<li>國泰人壽 業務部 莊士毅</li>
+						</ul>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn Btn_Light_Green Btn_basic" onclick="doDelete(2153312)">確定刪除</button>
+						<button type="button" class="btn Btn_Gray Btn_basic" data-dismiss="modal">取消</button>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+			<div>
+		<div class="modal fade bd-notReported-modal-2153312 meetingRecord-2153312" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						
+							<h5 class="modal-title" id="myLargeModalLabel">註記未報到</h5>
+						
+						
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="Text_area">
+						<ul>
+							
+								<li>您是否確認註記未報到？</li>
+							
+							
+						</ul>
+					</div>
+					<div class="modal-footer">
+						
+							<button type="button" class="btn Btn_Light_Green Btn_basic" onclick="inserNoShow(2153312)">確定註記</button>
+						
+						
+						<button type="button" class="btn Btn_Gray Btn_basic" data-dismiss="modal">取消</button>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+			<div class="Pop_Meeting_detial">
+				<div class="Button_area">
+					<div class="Left">
+						<!-- 啟用的會議室其記錄才可以做刪除和發通知 -->
+						
+							
+						
+					</div>
+					<div class="Right">
+						<i class="fas fa-times closePopDetail" data-closepopdetail="2153312"></i>
+					</div>
+				</div>
+				<div class="Content">
+					<div class="Title">討論團險下半年經營策略</div>
+					<div class="Detail_area">
+						
+						<!-- 已存在黑名單中 -->
+						
+						<!-- 沒有存在黑名單中 -->
+						
+							<!-- 會議室是啟用的 -->
+							
+								
+									<ul class="situationUL">
+										<li>是否未報到:</li>
+										<li>否</li>
+									</ul>
+								
+								
+							
+						
+<!-- 						<ul> -->
+<!-- 							<li>狀態：</li> -->
+<!-- 							<li th:text="${meetingRoomRecord.status.name}"></li> -->
+<!-- 						</ul> -->
+						<ul>
+							<li>預約日期：</li>
+							<li>2025/07/04 10:00~12:00</li>
+						</ul>
+						<ul id="meetingRoomRecordDetailConvener2153312">
+							<li>召集人：</li>
+							<li>國泰人壽 業務部</li>
+							<li>莊士毅</li>
+							<li>27551399#2177</li>
+						</ul>
+<!--						<ul th:if="${meetingRoomRecord.isUserEqualsReserver}">-->
+<!--							<li>參與人員：</li>-->
+<!--							<li>-->
+<!--								<th:block th:each="attendee:${meetingRoomRecord.attendees}">-->
+<!--									<th:block th:if="${attendee.userId !=null}">-->
+<!--										<div th:text="${attendee.userId.empName}"></div>-->
+<!--									</th:block>-->
+<!--									<th:block th:if="${attendee.userId ==null}">-->
+<!--										<div th:text="${attendee.email}"></div>-->
+<!--									</th:block>-->
+<!--								</th:block>-->
+<!--							</li>-->
+<!--						</ul>-->
+<!-- 						<ul> -->
+<!-- 							<li>參與部門：</li> -->
+<!-- 							<li> -->
+<!-- 								<th:block th:each="unit:${meetingRoomRecord.attendedUnits}"> -->
+<!-- 								<span th:text="${unit.departmentCode.buName}"></span> -->
+<!-- 							</th:block> -->
+<!-- 							</li> -->
+<!-- 						</ul> -->
+						
+					</div>
+				</div>
+			</div>
+			</div>
+			<script type="text/javascript">
+				$('.closePopDetail').click(function() {
+					var childTarget =$(this).attr('data-closePopDetail');
+					$('.meetingRecordPopDetail-'+childTarget).modal('hide');
+				})
+				
+				$('.deleteMeetingRoom').click(function(){
+					var childTarget = $(this).data("target");
+					var parentTarget = childTarget.split('bd-deleteBookingRecord-modal-')[1];
+					$('.meetingRecordPopDetail-'+parentTarget).modal('hide');
+				})
+				
+				$('.Situation').click(function(){
+					var childTarget=$(this).attr('data-Situation');
+					 $('.meetingRecordPopDetail-'+childTarget).modal('hide');
+				})
+				
+				$('.Pink_whitebg_block_insert').click(function(){
+					$('.Pop_Meeting_detial').hide();
+					var meetingroompk = $(this).attr('data-meetingroompk');   //把當前選擇會議室帶到後面預選
+					$('#tempMeetingRoomPK').val(meetingroompk);
+					openLoading();
+					$('#createMeetingRoom').submit();
+				})
+			</script>
+			<style>
+			.Pop_Meeting_detial .Content .Situation .btn-group button{
+				width: 100px;
+			}
+			
+			.situationUL{
+				margin-top: 5px;
+			}
+			</style>
+		 		  
+		
+	
+	
+		
+		
+	
+	
+		
+		
+	
+	
+
+
+
+
+	<form id="createMeetingRoom" method="post" action="/frontend/mrm101w/mrm101w3Pre"><input type="hidden" name="_csrf" value="6059c613-4c53-48aa-ba7b-7fa95c22d063">
+		<input type="hidden" name="startTime" id="startTime">
+		<input type="hidden" name="endTime" id="endTime">
+		<input type="hidden" name="tempMeetingRoomPK" id="tempMeetingRoomPK">
+		<input type="hidden" name="noShowMeetingRoomRecordPk" id="noShowMeetingRoomRecordPk">
+		<input type="hidden" name="sessionTarget" value="mrm101Page">
+	</form>
+	
+	<script type="text/javascript">
+		$(function() {
+// 			window.setInterval(( () => $('#mrm101w1').submit() ), 60000);
+			
+			var provideStartDate = "2025-07-04";
+			var provideEndDate = "2025-07-04";
+			var startDateForSD = new Date(provideStartDate);
+			var startDateForED = new Date(provideEndDate);
+			
+			bindDatePicker('startDate', 'endDate', startDateForSD, startDateForED);
+			
+			//手機幫忙隱藏搜尋列
+			if($('#searchBeanBuildingPK').val() != ''){      //非請選擇
+ 				var pxWidth = document.body.clientWidth;
+ 				if(pxWidth < 757){
+ 					$(".searchDiv").hide();
+ 	 				$('#timeTable').attr('class','Booking_calendar Fixed-close');
+ 	 				$('#timeTableMeetingRoom').attr('class','Booking_calendar Fixed-close');
+ 					$(".Mobile_hide2").hide();
+ 				}
+			}
+			
+			var errDisplay = $("#errDiv").css('display');
+			var errorDisplay = $("#errorDiv").css('display');
+			if(errDisplay =='block' || errorDisplay =='block'){
+				$(".Booking_calendar").addClass('errInfo_padding');
+			}else{
+				$(".Booking_calendar").removeClass('errInfo_padding');
+			}
+		});
+		
+		$('#searchImg').on('click',function(){
+			var pxWidth = document.body.clientWidth;
+ 			if(pxWidth < 757){
+ 				$(".Mobile_hide2").toggle();
+ 			}
+		})
+		
+		$('#searchBeanBuildingPK').change(function() {
+			$('#buildingPK').val($(this).val())
+		})
+		$('#goCreate').click(function() {
+			openLoading();
+			$('#createMeetingRoom').submit()
+		})
+		
+		$('.InputSelected').click(function(){
+			$('#hiddenSelectedDate').val($(this).val());
+			$('#hiddenIsSearchBtn').val(false);
+			$('.searchDate').val($(this).val());
+		})
+		
+		$('.Search_btn').click(function(){
+			$('#hiddenSelectedDate').val($('.TodayBtn').val());
+			$('#hiddenIsSearchBtn').val(true);
+		})
+		
+		$('#searchImg').click(function(){          //這樣pop就不會跑掉  上下位置可以reset
+			$('.Pop_Meeting_detial').each(function(index){
+				var currentShow = $(this).css('display');
+				if(currentShow == 'block'){
+					var cl = $(this).attr("class").split(" ");
+					var newcl =[];
+					for(var i=0;i<cl.length;i++){
+				        r = cl[i].search(/Position+/);
+				        if(r)newcl[newcl.length] = cl[i];
+				    }
+					$(this).removeClass().addClass(newcl.join(" "));
+				}
+			})
+			
+			$('.Pop_Meeting_detial').hide();
+		})
+		
+		dateErrorCheck();
+		
+		function downloadAttach(id){
+			$('.downloadError').empty();
+			
+			var url = "/frontend/mrm105w/download/"+id;
+			$.ajax({
+				url: url,
+				type:'get',
+			})
+			.done(function(data) {
+				window.location.href = url;
+			})
+			.fail(function(jqXHR, textStatus, errorThrown) {
+				var errMsg = '下載失敗';
+				if(jqXHR.responseJSON){
+					errMsg = jqXHR.responseJSON.errMsg;
+				}
+				$('.downloadError').text(errMsg);
+				$('.downloadError').css('display','block');
+			});
+		}
+		
+		// 增修編號24: 實體會議選擇大樓就執行查詢動作
+		$('.buildingSelect').change(function(){
+			$('.Search_btn').click();
+		});
+		
+		$('#mrm101w1').validate({
+			rules : {
+				'searchBean.startDate' : {
+					required : true,
+					checkDate : true,
+				},
+				'searchBean.endDate' : {
+					required : true,
+					checkDate : true,
+					checkStartAndEndDate : [ 'startDate', 'endDate' ],
+					checkStartBiggerThanEnd : [ 'startDate', 'endDate' ]
+				},
+				'searchBean.weekDay' : { 
+					checkWeekDay : true, // Stage2增修_編號8：判斷WeekDay是否符合星期幾or空字串(無選擇) By Eddie
+					checkHasMatchedDateWithWeekDay: [ 'startDate', 'endDate', 'weekDay'] // Stage2增修_編號8：判斷日期區間內是否有符合星期條件的日期 By Eddie
+				}
+			},
+			validClass : 'error-input',
+			errorClass : 'Error_note_2block',
+			errorElement : 'span',
+			highlight : function(element, errorClass, validClass) {
+				$(element).addClass(validClass);
+			},
+			unhighlight : function(element, errorClass, validClass) {
+				$(element).removeClass(validClass);
+			},
+			errorPlacement : function(error, element) {
+				var name = $(element).attr('name');
+				var elementClass = $(element).attr('class');
+				error.appendTo($('#endDateError'));
+				$('#endDateError').show();
+			},
+			focusInvalid : true,
+			invalidHandler : function(form) {
+				closeLoading();
+				$("#errDiv").hide();
+				$("#errorDiv").show();
+				$(".Booking_calendar").removeClass('errInfo_padding');
+				$(".Booking_calendar").addClass('errInfo_div_padding');
+			},
+			submitHandler : function(form) {
+				$(".Booking_calendar").removeClass('errInfo_div_padding');
+				form.submit();
+			}
+		});
+		// new slider setting RDW div show number
+		var owl = $('.owl-carousel');
+		var currentDateIndex = parseInt($('.TodayBtn').attr('data-datecurrent'));
+		var rangeDateSize = 1;
+		var realSize = parseInt(rangeDateSize);
+			owl.owlCarousel({
+				margin: 5,
+				responsiveRefreshRate:100,
+				dots: false,  //底下不必要的按鈕
+				startPosition: currentDateIndex, // 可為 string / number
+				loop:false,
+				responsive: {
+					220: {
+						items: realSize > 3? 3:realSize,
+					},
+					380: {
+						items: realSize > 4? 4:realSize,
+					},
+					768: {
+						items: realSize > 5? 5:realSize,
+						nav:true, //開啟左右箭頭(只限於非手機版面)
+					},
+					1024: {
+						items: realSize > 3? 3:realSize,
+						nav:true, //開啟左右箭頭(只限於非手機版面)
+					},
+					1280: {
+						items: realSize > 5? 5:realSize,
+						nav:true, //開啟左右箭頭(只限於非手機版面)
+					},
+					1366: {
+						items: realSize > 5? 5:realSize,
+						nav:true, //開啟左右箭頭(只限於非手機版面)
+					},
+					1440: {
+						items: realSize > 5? 5:realSize,
+						nav:true, //開啟左右箭頭(只限於非手機版面)
+					},
+					1920: {
+						items: realSize > 5? 5:realSize,
+						nav:true, //開啟左右箭頭(只限於非手機版面)
+					}
+				}
+			})
+	openLoading();
+	closeLoading();
+	</script>
+
+	
+<div class="xdsoft_datetimepicker xdsoft_noselect xdsoft_"><div class="xdsoft_datepicker active"><div class="xdsoft_monthpicker"><button type="button" class="xdsoft_prev" style="visibility: visible;"></button><button type="button" class="xdsoft_today_button" style="visibility: visible;"></button><div class="xdsoft_label xdsoft_month"><span>七月</span><div class="xdsoft_select xdsoft_monthselect xdsoft_scroller_box"><div style="margin-top: 0px;"><div class="xdsoft_option " data-value="0">一月</div><div class="xdsoft_option " data-value="1">二月</div><div class="xdsoft_option " data-value="2">三月</div><div class="xdsoft_option " data-value="3">四月</div><div class="xdsoft_option " data-value="4">五月</div><div class="xdsoft_option " data-value="5">六月</div><div class="xdsoft_option xdsoft_current" data-value="6">七月</div><div class="xdsoft_option " data-value="7">八月</div><div class="xdsoft_option " data-value="8">九月</div><div class="xdsoft_option " data-value="9">十月</div><div class="xdsoft_option " data-value="10">十一月</div><div class="xdsoft_option " data-value="11">十二月</div></div><div class="xdsoft_scrollbar"><div class="xdsoft_scroller" style="height: 10px; margin-top: 0px;"></div></div></div><i></i></div><div class="xdsoft_label xdsoft_year"><span>2025</span><div class="xdsoft_select xdsoft_yearselect xdsoft_scroller_box"><div style="margin-top: 0px;"><div class="xdsoft_option " data-value="2000">2000</div><div class="xdsoft_option " data-value="2001">2001</div><div class="xdsoft_option " data-value="2002">2002</div><div class="xdsoft_option " data-value="2003">2003</div><div class="xdsoft_option " data-value="2004">2004</div><div class="xdsoft_option " data-value="2005">2005</div><div class="xdsoft_option " data-value="2006">2006</div><div class="xdsoft_option " data-value="2007">2007</div><div class="xdsoft_option " data-value="2008">2008</div><div class="xdsoft_option " data-value="2009">2009</div><div class="xdsoft_option " data-value="2010">2010</div><div class="xdsoft_option " data-value="2011">2011</div><div class="xdsoft_option " data-value="2012">2012</div><div class="xdsoft_option " data-value="2013">2013</div><div class="xdsoft_option " data-value="2014">2014</div><div class="xdsoft_option " data-value="2015">2015</div><div class="xdsoft_option " data-value="2016">2016</div><div class="xdsoft_option " data-value="2017">2017</div><div class="xdsoft_option " data-value="2018">2018</div><div class="xdsoft_option " data-value="2019">2019</div><div class="xdsoft_option " data-value="2020">2020</div><div class="xdsoft_option " data-value="2021">2021</div><div class="xdsoft_option " data-value="2022">2022</div><div class="xdsoft_option " data-value="2023">2023</div><div class="xdsoft_option " data-value="2024">2024</div><div class="xdsoft_option xdsoft_current" data-value="2025">2025</div><div class="xdsoft_option " data-value="2026">2026</div><div class="xdsoft_option " data-value="2027">2027</div><div class="xdsoft_option " data-value="2028">2028</div><div class="xdsoft_option " data-value="2029">2029</div><div class="xdsoft_option " data-value="2030">2030</div><div class="xdsoft_option " data-value="2031">2031</div><div class="xdsoft_option " data-value="2032">2032</div><div class="xdsoft_option " data-value="2033">2033</div><div class="xdsoft_option " data-value="2034">2034</div><div class="xdsoft_option " data-value="2035">2035</div><div class="xdsoft_option " data-value="2036">2036</div><div class="xdsoft_option " data-value="2037">2037</div><div class="xdsoft_option " data-value="2038">2038</div><div class="xdsoft_option " data-value="2039">2039</div><div class="xdsoft_option " data-value="2040">2040</div><div class="xdsoft_option " data-value="2041">2041</div><div class="xdsoft_option " data-value="2042">2042</div><div class="xdsoft_option " data-value="2043">2043</div><div class="xdsoft_option " data-value="2044">2044</div><div class="xdsoft_option " data-value="2045">2045</div><div class="xdsoft_option " data-value="2046">2046</div><div class="xdsoft_option " data-value="2047">2047</div><div class="xdsoft_option " data-value="2048">2048</div><div class="xdsoft_option " data-value="2049">2049</div><div class="xdsoft_option " data-value="2050">2050</div></div><div class="xdsoft_scrollbar"><div class="xdsoft_scroller" style="height: 10px; margin-top: 0px;"></div></div></div><i></i></div><button type="button" class="xdsoft_next" style="visibility: visible;"></button></div><div class="xdsoft_calendar"><table><thead><tr><th>日</th><th>一</th><th>二</th><th>三</th><th>四</th><th>五</th><th>六</th></tr></thead><tbody><tr><td data-date="29" data-month="5" data-year="2025" class="xdsoft_date xdsoft_day_of_week0 xdsoft_date xdsoft_other_month xdsoft_weekend" title=""><div>29</div></td><td data-date="30" data-month="5" data-year="2025" class="xdsoft_date xdsoft_day_of_week1 xdsoft_date xdsoft_other_month" title=""><div>30</div></td><td data-date="1" data-month="6" data-year="2025" class="xdsoft_date xdsoft_day_of_week2 xdsoft_date" title=""><div>1</div></td><td data-date="2" data-month="6" data-year="2025" class="xdsoft_date xdsoft_day_of_week3 xdsoft_date" title=""><div>2</div></td><td data-date="3" data-month="6" data-year="2025" class="xdsoft_date xdsoft_day_of_week4 xdsoft_date" title=""><div>3</div></td><td data-date="4" data-month="6" data-year="2025" class="xdsoft_date xdsoft_day_of_week5 xdsoft_date xdsoft_current xdsoft_today" title=""><div>4</div></td><td data-date="5" data-month="6" data-year="2025" class="xdsoft_date xdsoft_day_of_week6 xdsoft_date xdsoft_weekend" title=""><div>5</div></td></tr><tr><td data-date="6" data-month="6" data-year="2025" class="xdsoft_date xdsoft_day_of_week0 xdsoft_date xdsoft_weekend" title=""><div>6</div></td><td data-date="7" data-month="6" data-year="2025" class="xdsoft_date xdsoft_day_of_week1 xdsoft_date" title=""><div>7</div></td><td data-date="8" data-month="6" data-year="2025" class="xdsoft_date xdsoft_day_of_week2 xdsoft_date" title=""><div>8</div></td><td data-date="9" data-month="6" data-year="2025" class="xdsoft_date xdsoft_day_of_week3 xdsoft_date" title=""><div>9</div></td><td data-date="10" data-month="6" data-year="2025" class="xdsoft_date xdsoft_day_of_week4 xdsoft_date" title=""><div>10</div></td><td data-date="11" data-month="6" data-year="2025" class="xdsoft_date xdsoft_day_of_week5 xdsoft_date" title=""><div>11</div></td><td data-date="12" data-month="6" data-year="2025" class="xdsoft_date xdsoft_day_of_week6 xdsoft_date xdsoft_weekend" title=""><div>12</div></td></tr><tr><td data-date="13" data-month="6" data-year="2025" class="xdsoft_date xdsoft_day_of_week0 xdsoft_date xdsoft_weekend" title=""><div>13</div></td><td data-date="14" data-month="6" data-year="2025" class="xdsoft_date xdsoft_day_of_week1 xdsoft_date" title=""><div>14</div></td><td data-date="15" data-month="6" data-year="2025" class="xdsoft_date xdsoft_day_of_week2 xdsoft_date" title=""><div>15</div></td><td data-date="16" data-month="6" data-year="2025" class="xdsoft_date xdsoft_day_of_week3 xdsoft_date" title=""><div>16</div></td><td data-date="17" data-month="6" data-year="2025" class="xdsoft_date xdsoft_day_of_week4 xdsoft_date" title=""><div>17</div></td><td data-date="18" data-month="6" data-year="2025" class="xdsoft_date xdsoft_day_of_week5 xdsoft_date" title=""><div>18</div></td><td data-date="19" data-month="6" data-year="2025" class="xdsoft_date xdsoft_day_of_week6 xdsoft_date xdsoft_weekend" title=""><div>19</div></td></tr><tr><td data-date="20" data-month="6" data-year="2025" class="xdsoft_date xdsoft_day_of_week0 xdsoft_date xdsoft_weekend" title=""><div>20</div></td><td data-date="21" data-month="6" data-year="2025" class="xdsoft_date xdsoft_day_of_week1 xdsoft_date" title=""><div>21</div></td><td data-date="22" data-month="6" data-year="2025" class="xdsoft_date xdsoft_day_of_week2 xdsoft_date" title=""><div>22</div></td><td data-date="23" data-month="6" data-year="2025" class="xdsoft_date xdsoft_day_of_week3 xdsoft_date" title=""><div>23</div></td><td data-date="24" data-month="6" data-year="2025" class="xdsoft_date xdsoft_day_of_week4 xdsoft_date" title=""><div>24</div></td><td data-date="25" data-month="6" data-year="2025" class="xdsoft_date xdsoft_day_of_week5 xdsoft_date" title=""><div>25</div></td><td data-date="26" data-month="6" data-year="2025" class="xdsoft_date xdsoft_day_of_week6 xdsoft_date xdsoft_weekend" title=""><div>26</div></td></tr><tr><td data-date="27" data-month="6" data-year="2025" class="xdsoft_date xdsoft_day_of_week0 xdsoft_date xdsoft_weekend" title=""><div>27</div></td><td data-date="28" data-month="6" data-year="2025" class="xdsoft_date xdsoft_day_of_week1 xdsoft_date" title=""><div>28</div></td><td data-date="29" data-month="6" data-year="2025" class="xdsoft_date xdsoft_day_of_week2 xdsoft_date" title=""><div>29</div></td><td data-date="30" data-month="6" data-year="2025" class="xdsoft_date xdsoft_day_of_week3 xdsoft_date" title=""><div>30</div></td><td data-date="31" data-month="6" data-year="2025" class="xdsoft_date xdsoft_day_of_week4 xdsoft_date" title=""><div>31</div></td><td data-date="1" data-month="7" data-year="2025" class="xdsoft_date xdsoft_day_of_week5 xdsoft_date xdsoft_other_month" title=""><div>1</div></td><td data-date="2" data-month="7" data-year="2025" class="xdsoft_date xdsoft_day_of_week6 xdsoft_date xdsoft_other_month xdsoft_weekend" title=""><div>2</div></td></tr></tbody></table></div><button type="button" class="xdsoft_save_selected blue-gradient-button" style="display: none;">Save Selected</button></div><div class="xdsoft_timepicker"><button type="button" class="xdsoft_prev"></button><div class="xdsoft_time_box xdsoft_scroller_box"><div class="xdsoft_time_variant" style="margin-top: 0px;"><div class="xdsoft_time " data-hour="0" data-minute="0">00:00</div><div class="xdsoft_time " data-hour="1" data-minute="0">01:00</div><div class="xdsoft_time " data-hour="2" data-minute="0">02:00</div><div class="xdsoft_time " data-hour="3" data-minute="0">03:00</div><div class="xdsoft_time " data-hour="4" data-minute="0">04:00</div><div class="xdsoft_time " data-hour="5" data-minute="0">05:00</div><div class="xdsoft_time " data-hour="6" data-minute="0">06:00</div><div class="xdsoft_time " data-hour="7" data-minute="0">07:00</div><div class="xdsoft_time xdsoft_current" data-hour="8" data-minute="0">08:00</div><div class="xdsoft_time " data-hour="9" data-minute="0">09:00</div><div class="xdsoft_time " data-hour="10" data-minute="0">10:00</div><div class="xdsoft_time " data-hour="11" data-minute="0">11:00</div><div class="xdsoft_time " data-hour="12" data-minute="0">12:00</div><div class="xdsoft_time " data-hour="13" data-minute="0">13:00</div><div class="xdsoft_time " data-hour="14" data-minute="0">14:00</div><div class="xdsoft_time " data-hour="15" data-minute="0">15:00</div><div class="xdsoft_time " data-hour="16" data-minute="0">16:00</div><div class="xdsoft_time " data-hour="17" data-minute="0">17:00</div><div class="xdsoft_time " data-hour="18" data-minute="0">18:00</div><div class="xdsoft_time " data-hour="19" data-minute="0">19:00</div><div class="xdsoft_time " data-hour="20" data-minute="0">20:00</div><div class="xdsoft_time " data-hour="21" data-minute="0">21:00</div><div class="xdsoft_time " data-hour="22" data-minute="0">22:00</div><div class="xdsoft_time " data-hour="23" data-minute="0">23:00</div></div><div class="xdsoft_scrollbar"><div class="xdsoft_scroller" style="height: 10px; margin-top: 0px;"></div></div></div><button type="button" class="xdsoft_next"></button></div></div><div class="xdsoft_datetimepicker xdsoft_noselect xdsoft_"><div class="xdsoft_datepicker active"><div class="xdsoft_monthpicker"><button type="button" class="xdsoft_prev" style="visibility: visible;"></button><button type="button" class="xdsoft_today_button" style="visibility: visible;"></button><div class="xdsoft_label xdsoft_month"><span>七月</span><div class="xdsoft_select xdsoft_monthselect xdsoft_scroller_box"><div style="margin-top: 0px;"><div class="xdsoft_option " data-value="0">一月</div><div class="xdsoft_option " data-value="1">二月</div><div class="xdsoft_option " data-value="2">三月</div><div class="xdsoft_option " data-value="3">四月</div><div class="xdsoft_option " data-value="4">五月</div><div class="xdsoft_option " data-value="5">六月</div><div class="xdsoft_option xdsoft_current" data-value="6">七月</div><div class="xdsoft_option " data-value="7">八月</div><div class="xdsoft_option " data-value="8">九月</div><div class="xdsoft_option " data-value="9">十月</div><div class="xdsoft_option " data-value="10">十一月</div><div class="xdsoft_option " data-value="11">十二月</div></div><div class="xdsoft_scrollbar"><div class="xdsoft_scroller" style="height: 10px; margin-top: 0px;"></div></div></div><i></i></div><div class="xdsoft_label xdsoft_year"><span>2025</span><div class="xdsoft_select xdsoft_yearselect xdsoft_scroller_box"><div style="margin-top: 0px;"><div class="xdsoft_option " data-value="2000">2000</div><div class="xdsoft_option " data-value="2001">2001</div><div class="xdsoft_option " data-value="2002">2002</div><div class="xdsoft_option " data-value="2003">2003</div><div class="xdsoft_option " data-value="2004">2004</div><div class="xdsoft_option " data-value="2005">2005</div><div class="xdsoft_option " data-value="2006">2006</div><div class="xdsoft_option " data-value="2007">2007</div><div class="xdsoft_option " data-value="2008">2008</div><div class="xdsoft_option " data-value="2009">2009</div><div class="xdsoft_option " data-value="2010">2010</div><div class="xdsoft_option " data-value="2011">2011</div><div class="xdsoft_option " data-value="2012">2012</div><div class="xdsoft_option " data-value="2013">2013</div><div class="xdsoft_option " data-value="2014">2014</div><div class="xdsoft_option " data-value="2015">2015</div><div class="xdsoft_option " data-value="2016">2016</div><div class="xdsoft_option " data-value="2017">2017</div><div class="xdsoft_option " data-value="2018">2018</div><div class="xdsoft_option " data-value="2019">2019</div><div class="xdsoft_option " data-value="2020">2020</div><div class="xdsoft_option " data-value="2021">2021</div><div class="xdsoft_option " data-value="2022">2022</div><div class="xdsoft_option " data-value="2023">2023</div><div class="xdsoft_option " data-value="2024">2024</div><div class="xdsoft_option xdsoft_current" data-value="2025">2025</div><div class="xdsoft_option " data-value="2026">2026</div><div class="xdsoft_option " data-value="2027">2027</div><div class="xdsoft_option " data-value="2028">2028</div><div class="xdsoft_option " data-value="2029">2029</div><div class="xdsoft_option " data-value="2030">2030</div><div class="xdsoft_option " data-value="2031">2031</div><div class="xdsoft_option " data-value="2032">2032</div><div class="xdsoft_option " data-value="2033">2033</div><div class="xdsoft_option " data-value="2034">2034</div><div class="xdsoft_option " data-value="2035">2035</div><div class="xdsoft_option " data-value="2036">2036</div><div class="xdsoft_option " data-value="2037">2037</div><div class="xdsoft_option " data-value="2038">2038</div><div class="xdsoft_option " data-value="2039">2039</div><div class="xdsoft_option " data-value="2040">2040</div><div class="xdsoft_option " data-value="2041">2041</div><div class="xdsoft_option " data-value="2042">2042</div><div class="xdsoft_option " data-value="2043">2043</div><div class="xdsoft_option " data-value="2044">2044</div><div class="xdsoft_option " data-value="2045">2045</div><div class="xdsoft_option " data-value="2046">2046</div><div class="xdsoft_option " data-value="2047">2047</div><div class="xdsoft_option " data-value="2048">2048</div><div class="xdsoft_option " data-value="2049">2049</div><div class="xdsoft_option " data-value="2050">2050</div></div><div class="xdsoft_scrollbar"><div class="xdsoft_scroller" style="height: 10px; margin-top: 0px;"></div></div></div><i></i></div><button type="button" class="xdsoft_next" style="visibility: visible;"></button></div><div class="xdsoft_calendar"><table><thead><tr><th>日</th><th>一</th><th>二</th><th>三</th><th>四</th><th>五</th><th>六</th></tr></thead><tbody><tr><td data-date="29" data-month="5" data-year="2025" class="xdsoft_date xdsoft_day_of_week0 xdsoft_date xdsoft_other_month xdsoft_weekend" title=""><div>29</div></td><td data-date="30" data-month="5" data-year="2025" class="xdsoft_date xdsoft_day_of_week1 xdsoft_date xdsoft_other_month" title=""><div>30</div></td><td data-date="1" data-month="6" data-year="2025" class="xdsoft_date xdsoft_day_of_week2 xdsoft_date" title=""><div>1</div></td><td data-date="2" data-month="6" data-year="2025" class="xdsoft_date xdsoft_day_of_week3 xdsoft_date" title=""><div>2</div></td><td data-date="3" data-month="6" data-year="2025" class="xdsoft_date xdsoft_day_of_week4 xdsoft_date" title=""><div>3</div></td><td data-date="4" data-month="6" data-year="2025" class="xdsoft_date xdsoft_day_of_week5 xdsoft_date xdsoft_current xdsoft_today" title=""><div>4</div></td><td data-date="5" data-month="6" data-year="2025" class="xdsoft_date xdsoft_day_of_week6 xdsoft_date xdsoft_weekend" title=""><div>5</div></td></tr><tr><td data-date="6" data-month="6" data-year="2025" class="xdsoft_date xdsoft_day_of_week0 xdsoft_date xdsoft_weekend" title=""><div>6</div></td><td data-date="7" data-month="6" data-year="2025" class="xdsoft_date xdsoft_day_of_week1 xdsoft_date" title=""><div>7</div></td><td data-date="8" data-month="6" data-year="2025" class="xdsoft_date xdsoft_day_of_week2 xdsoft_date" title=""><div>8</div></td><td data-date="9" data-month="6" data-year="2025" class="xdsoft_date xdsoft_day_of_week3 xdsoft_date" title=""><div>9</div></td><td data-date="10" data-month="6" data-year="2025" class="xdsoft_date xdsoft_day_of_week4 xdsoft_date" title=""><div>10</div></td><td data-date="11" data-month="6" data-year="2025" class="xdsoft_date xdsoft_day_of_week5 xdsoft_date" title=""><div>11</div></td><td data-date="12" data-month="6" data-year="2025" class="xdsoft_date xdsoft_day_of_week6 xdsoft_date xdsoft_weekend" title=""><div>12</div></td></tr><tr><td data-date="13" data-month="6" data-year="2025" class="xdsoft_date xdsoft_day_of_week0 xdsoft_date xdsoft_weekend" title=""><div>13</div></td><td data-date="14" data-month="6" data-year="2025" class="xdsoft_date xdsoft_day_of_week1 xdsoft_date" title=""><div>14</div></td><td data-date="15" data-month="6" data-year="2025" class="xdsoft_date xdsoft_day_of_week2 xdsoft_date" title=""><div>15</div></td><td data-date="16" data-month="6" data-year="2025" class="xdsoft_date xdsoft_day_of_week3 xdsoft_date" title=""><div>16</div></td><td data-date="17" data-month="6" data-year="2025" class="xdsoft_date xdsoft_day_of_week4 xdsoft_date" title=""><div>17</div></td><td data-date="18" data-month="6" data-year="2025" class="xdsoft_date xdsoft_day_of_week5 xdsoft_date" title=""><div>18</div></td><td data-date="19" data-month="6" data-year="2025" class="xdsoft_date xdsoft_day_of_week6 xdsoft_date xdsoft_weekend" title=""><div>19</div></td></tr><tr><td data-date="20" data-month="6" data-year="2025" class="xdsoft_date xdsoft_day_of_week0 xdsoft_date xdsoft_weekend" title=""><div>20</div></td><td data-date="21" data-month="6" data-year="2025" class="xdsoft_date xdsoft_day_of_week1 xdsoft_date" title=""><div>21</div></td><td data-date="22" data-month="6" data-year="2025" class="xdsoft_date xdsoft_day_of_week2 xdsoft_date" title=""><div>22</div></td><td data-date="23" data-month="6" data-year="2025" class="xdsoft_date xdsoft_day_of_week3 xdsoft_date" title=""><div>23</div></td><td data-date="24" data-month="6" data-year="2025" class="xdsoft_date xdsoft_day_of_week4 xdsoft_date" title=""><div>24</div></td><td data-date="25" data-month="6" data-year="2025" class="xdsoft_date xdsoft_day_of_week5 xdsoft_date" title=""><div>25</div></td><td data-date="26" data-month="6" data-year="2025" class="xdsoft_date xdsoft_day_of_week6 xdsoft_date xdsoft_weekend" title=""><div>26</div></td></tr><tr><td data-date="27" data-month="6" data-year="2025" class="xdsoft_date xdsoft_day_of_week0 xdsoft_date xdsoft_weekend" title=""><div>27</div></td><td data-date="28" data-month="6" data-year="2025" class="xdsoft_date xdsoft_day_of_week1 xdsoft_date" title=""><div>28</div></td><td data-date="29" data-month="6" data-year="2025" class="xdsoft_date xdsoft_day_of_week2 xdsoft_date" title=""><div>29</div></td><td data-date="30" data-month="6" data-year="2025" class="xdsoft_date xdsoft_day_of_week3 xdsoft_date" title=""><div>30</div></td><td data-date="31" data-month="6" data-year="2025" class="xdsoft_date xdsoft_day_of_week4 xdsoft_date" title=""><div>31</div></td><td data-date="1" data-month="7" data-year="2025" class="xdsoft_date xdsoft_day_of_week5 xdsoft_date xdsoft_other_month" title=""><div>1</div></td><td data-date="2" data-month="7" data-year="2025" class="xdsoft_date xdsoft_day_of_week6 xdsoft_date xdsoft_other_month xdsoft_weekend" title=""><div>2</div></td></tr></tbody></table></div><button type="button" class="xdsoft_save_selected blue-gradient-button" style="display: none;">Save Selected</button></div><div class="xdsoft_timepicker"><button type="button" class="xdsoft_prev"></button><div class="xdsoft_time_box xdsoft_scroller_box"><div class="xdsoft_time_variant" style="margin-top: 0px;"><div class="xdsoft_time " data-hour="0" data-minute="0">00:00</div><div class="xdsoft_time " data-hour="1" data-minute="0">01:00</div><div class="xdsoft_time " data-hour="2" data-minute="0">02:00</div><div class="xdsoft_time " data-hour="3" data-minute="0">03:00</div><div class="xdsoft_time " data-hour="4" data-minute="0">04:00</div><div class="xdsoft_time " data-hour="5" data-minute="0">05:00</div><div class="xdsoft_time " data-hour="6" data-minute="0">06:00</div><div class="xdsoft_time " data-hour="7" data-minute="0">07:00</div><div class="xdsoft_time xdsoft_current" data-hour="8" data-minute="0">08:00</div><div class="xdsoft_time " data-hour="9" data-minute="0">09:00</div><div class="xdsoft_time " data-hour="10" data-minute="0">10:00</div><div class="xdsoft_time " data-hour="11" data-minute="0">11:00</div><div class="xdsoft_time " data-hour="12" data-minute="0">12:00</div><div class="xdsoft_time " data-hour="13" data-minute="0">13:00</div><div class="xdsoft_time " data-hour="14" data-minute="0">14:00</div><div class="xdsoft_time " data-hour="15" data-minute="0">15:00</div><div class="xdsoft_time " data-hour="16" data-minute="0">16:00</div><div class="xdsoft_time " data-hour="17" data-minute="0">17:00</div><div class="xdsoft_time " data-hour="18" data-minute="0">18:00</div><div class="xdsoft_time " data-hour="19" data-minute="0">19:00</div><div class="xdsoft_time " data-hour="20" data-minute="0">20:00</div><div class="xdsoft_time " data-hour="21" data-minute="0">21:00</div><div class="xdsoft_time " data-hour="22" data-minute="0">22:00</div><div class="xdsoft_time " data-hour="23" data-minute="0">23:00</div></div><div class="xdsoft_scrollbar"><div class="xdsoft_scroller" style="height: 10px; margin-top: 0px;"></div></div></div><button type="button" class="xdsoft_next"></button></div></div></body></html>
