@@ -6,7 +6,7 @@
                 "--directory",
                 "/Users/mocheng/Documents/Cathay/DataCamp/ai_meeting_assistant/tools",
                 "run",
-                "mcp_tool.py" 
+                "mcp_search.py" 
             ]
         }
     }

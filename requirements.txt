@@ -6,3 +6,4 @@ mcp
 selenium
 bs4
 dateparser
+chromadb
