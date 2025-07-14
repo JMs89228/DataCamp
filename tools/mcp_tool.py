@@ -22,8 +22,8 @@ log = logging.getLogger(__name__)
 
 TPE = pytz.timezone("Asia/Taipei")
 
-username: str = "00897772", # TODO: 替換自己的員編
-password: str = "Cz@832789237" #TODO: 替換自己的員工入口網密碼
+username: str = "username", # TODO: 替換自己的員編
+password: str = "password" #TODO: 替換自己的員工入口網密碼
 
 @mcp.tool()
 def query_meeting_rooms(

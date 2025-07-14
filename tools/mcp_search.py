@@ -14,8 +14,8 @@ from mcp.server.fastmcp import FastMCP
 mcp = FastMCP("search_meeting_rooms", log_level="ERROR")
 BOOKING_URL = "https://booking.cathayholdings.com/frontend/mrm101w/index?"
 
-USERNAME = "00897772"   # TODO: 替換成你的員編
-PASSWORD = "Cz@832789237"  # TODO: 替換成你的密碼
+USERNAME = "username"   # TODO: 替換成你的員編
+PASSWORD = "password"  # TODO: 替換成你的密碼
 # -----------------------------------
 
 def create_driver():
