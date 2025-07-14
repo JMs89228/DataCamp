@@ -14,7 +14,9 @@
 
 3. 建立虛擬環境並啟動
    - 初始專案資料夾
+     ```cmd
      uv init my-project
+     ```
    - **macOS：**
      ```bash
      uv venv
